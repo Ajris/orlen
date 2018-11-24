@@ -1,0 +1,20 @@
+[
+  {
+    "longtitude":  [19.66044,19.67254],
+    "latitude": [52.59162,52.59047],
+    "maxWidth": 11,
+    "maxHeight": 2
+  },
+  {
+    "longtitude":  [19.67254,19.66576],
+    "latitude": [52.59047,52.58635],
+    "maxWidth": 10,
+    "maxHeight": 2
+  },
+  {
+    "longtitude":  [19.66576,19.68052],
+    "latitude": [52.58635,52.58625],
+    "maxWidth": 9,
+    "maxHeight": 2
+  }
+]

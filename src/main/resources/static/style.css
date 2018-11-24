@@ -1,0 +1,80 @@
+#map {
+    height: calc(100% - 110px);
+    width: 100%;
+    margin-top: 110px;
+}
+
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+header {
+    height: 70px;
+    width: 70%;
+    padding: 20px 15%;
+    box-shadow: 0px 0px 15px 5px #0001;
+    position: absolute;
+    z-index: 9;
+}
+
+.menu_container {
+    display: inline-block;
+    padding: 27px 10px;
+    font-size: 16px;
+}
+
+.menu_container > a {
+    text-decoration: none;
+}
+
+.menu_container > a > span {
+    color: #343434;
+    text-transform: uppercase;
+    font-family: Raleway;
+}
+
+.editRoute {
+    padding: 10px 0 40px 0;
+    width: 400px;
+    position: absolute;
+    bottom: 40px;
+    right: 40px;
+    background: #fff;
+    z-index: 9999;
+    box-shadow: 0 0 0 #0001;
+    box-shadow: 0px 0px 15px 5px #0001;
+    display: none;
+    text-align: center;
+}
+
+.editRoute > h2 {
+    text-align: center;
+    font-family: Raleway;
+    font-weight: 300;
+    padding: 5px 10px 5px 10px;
+    font-size: 30px;
+    margin-bottom: 0px;
+}
+
+.attributeTitle {
+    display: inline-block;
+    font-family: Raleway;
+    width: 70%;
+    margin: 10px 0 5px 0;
+}
+
+.attributeInput {
+    display: inline-block;
+    border: 0px;
+    border-bottom: 1px solid #ddd;
+    padding: 10px;
+    text-align: center;
+    width: 70%;
+    margin-bottom: 20px;
+    font-family: Raleway;
+    font-size: 15px;
+    margin: 0px;
+}
