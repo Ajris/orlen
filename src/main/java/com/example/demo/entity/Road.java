@@ -7,15 +7,18 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document(collection = "crossroad")
+@Document(collection = "road")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Crossroad {
+public class Road {
     @Id
     private String id;
 
-    private Double latitude;
-    private Double longitude;
+    private Crossroad start;
+    private Crossroad end;
+    private Double width;
+    private Double length;
+    private Double height;
 }
