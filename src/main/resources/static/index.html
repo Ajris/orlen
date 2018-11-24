@@ -1,26 +1,52 @@
-
+<!DOCTYPE html>
 <html>
 <head>
     <title>Mapy dla Hubiego</title>
     <meta name="viewport" content="initial-scale=1.0">
     <meta charset="utf-8">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <style>
-        #map {
-            height: 90%;
-            width: 100%;
-        }
-        html, body {
-            height: 100%;
-            margin: 0;
-            padding: 0;
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
 </head>
 <body>
+<header>
+    <img src="https://www.orlen.pl/Style%20Library/_iMg/logo.png"/>
+    <div style="height: 100%; float: right">
+        <div class="menu_container">
+            <a href="#">
+                <span>Home</span>
+            </a>
+        </div>
+        <div class="menu_container">
+            <a href="#" onclick="findWay()">
+                <span>Znajdź trasę dla pojazdu</span>
+            </a>
+        </div>
+        <div class="menu_container">
+            <a href="#" onclick="editRoute()">
+                <span>Edytuj trasę</span>
+            </a>
+        </div>
+        <div class="menu_container">
+            <a href="#">
+                <span>Dodaj punkt pośredni</span>
+            </a>
+        </div>
+    </div>
+</header>
+<div class="editRoute">
+    <h2>Edytuj trasę</h2>
+    <p class="attributeTitle">Szerokość drogi:</p>
+    <input class="attributeInput maxWidth"/>
+    <p class="attributeTitle">Maksymalna wysokość:</p>
+    <input class="attributeInput maxHeight"/>
+    <p class="attributeTitle">Długość drogi:</p>
+    <p class="attributeInput maxWidth">1</p>
+    <div>Zapisz</div>
+</div>
 <div id="map"></div>
+</body>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDmWYtxmVQ_Mi4pN5WnxHTo8CwMoKRydBU&callback=initMap"
         async defer></script>
-<script src="./script.js"></script>
-</body>
+<script src="./scripts.js"></script>
 </html>
