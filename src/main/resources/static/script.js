@@ -8,8 +8,8 @@ function initMap() {
         mapTypeId: google.maps.MapTypeId.ROADMAP
     });
 
-    jsonData.markers.forEach(marker => {
-        var myLatlng = new google.maps.LatLng(marker.coordinates[1], marker.coordinates[0]);
+    jsonData.forEach(marker => {
+        var myLatlng = new google.maps.LatLng(marker.longitude, marker.latitude);
     var newMarker = new google.maps.Marker({
         position: myLatlng,
         title: 'Hello World!'
@@ -18,6 +18,7 @@ function initMap() {
 });
 }
 
-$.getJSON('markers.json', function(data) {
+
+$.getJSON('./crossroads', function(data) {
     jsonData = data;
 });
