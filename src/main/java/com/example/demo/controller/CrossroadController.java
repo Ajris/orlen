@@ -6,6 +6,7 @@ import com.example.demo.repository.CrossroadRepository;
 import com.example.demo.repository.RoadRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -18,6 +19,16 @@ public class CrossroadController {
 
     @Autowired
     private RoadRepository roadRepository;
+
+    @PutMapping(value = "/setroad")
+    public void setRoad(Road road){
+        roadRepository.save(road);
+    }
+
+//    @PutMapping(value = "/calculateNewRoad")
+//    public List<Road> getCalculatedRoad(Crossroad crossroad){
+//
+//    }
 
     @GetMapping(value = "/crossroads")
     public List<Crossroad> getCrossroads() {

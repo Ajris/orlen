@@ -21,4 +21,5 @@ public class Road {
     private Double width;
     private Double length;
     private Double height;
+    private Double maxLoad;
 }
