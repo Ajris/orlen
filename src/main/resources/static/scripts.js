@@ -13,7 +13,8 @@ function initMap() {
         var myLatlng = new google.maps.LatLng(marker.coordinates[1], marker.coordinates[0]);
         var newMarker = new google.maps.Marker({
             position: myLatlng,
-            title: 'Hello World!'
+            title: 'Hello World!',
+            draggable: true
         });
         newMarker.setMap(map);
     });
@@ -30,9 +31,9 @@ function initMap() {
                     lat: polygons[i].latitude[1]
                 }],
             geodesic: true,
-            strokeColor: '#FF0000',
+            strokeColor: '#005489',
             strokeOpacity: 1.0,
-            strokeWeight: 10,
+            strokeWeight: 7,
             maxWidth: polygons[i].maxWidth,
             maxHeight: polygons[i].maxHeight
 
@@ -42,10 +43,26 @@ function initMap() {
             editRoute(this.maxWidth, this.maxHeight);
         });
     }
+    addAll();
 }
 
 function findWay() {
     console.log('aaa');
+}
+
+function addAll() {
+    const list = document.querySelector('.list');
+    jsonData.forEach(marker => {
+        console.log(marker);
+        var newNode = document.createElement("p");
+        newNode.innerHTML = marker.title;
+        list.appendChild(newNode);
+    });
+}
+
+function closeEditRoad() {
+    const editRoute = document.querySelector('.editRoute');
+    editRoute.style.display = "none";
 }
 
 function editRoute(maxWidth, maxHeight) {
@@ -53,8 +70,8 @@ function editRoute(maxWidth, maxHeight) {
     const maxWidthPlaceholder = document.querySelector('.maxWidth');
     const maxHeightPlaceholder = document.querySelector('.maxHeight');
     editRoute.style.display = "block";
-    maxWidthPlaceholder.placeholder = maxWidth;
-    maxHeightPlaceholder.placeholder = maxHeight;
+    maxWidthPlaceholder.value = maxWidth;
+    maxHeightPlaceholder.value = maxHeight;
 }
 
 $.getJSON('markers.json', function(data) {
