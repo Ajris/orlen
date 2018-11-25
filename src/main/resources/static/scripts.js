@@ -1,7 +1,7 @@
 var map;
 var jsonData;
 var polygons;
-function initMap() {
+function initiation() {
     map = new google.maps.Map(document.getElementById('map'), {
         center: {lat: 52.587711, lng: 19.669549},
         zoom: 14,
@@ -10,31 +10,31 @@ function initMap() {
     });
 
     jsonData.forEach(marker => {
-        var myLatlng = new google.maps.LatLng(marker.coordinates[1], marker.coordinates[0]);
+        var myLatlng = new google.maps.LatLng(marker.longitude, marker.latitude);
         var newMarker = new google.maps.Marker({
             position: myLatlng,
-            title: 'Hello World!'
+            title: 'Hello World!',
+            draggable: true
         });
         newMarker.setMap(map);
     });
 
-    for(var i=0; i<polygons.length; ++i) {
-        console.log(polygons[i]);
+    for(var i=0; i<polygons.length; i++) {
         var flightPath = new google.maps.Polyline({
             path: [{
-                lng: polygons[i].longtitude[0],
-                lat: polygons[i].latitude[0]
+                lng: polygons[i].start.latitude,
+                lat: polygons[i].start.longitude
             },
                 {
-                    lng: polygons[i].longtitude[1],
-                    lat: polygons[i].latitude[1]
+                    lng: polygons[i].end.latitude,
+                    lat: polygons[i].end.longitude
                 }],
             geodesic: true,
-            strokeColor: '#FF0000',
+            strokeColor: '#005489',
             strokeOpacity: 1.0,
-            strokeWeight: 10,
-            maxWidth: polygons[i].maxWidth,
-            maxHeight: polygons[i].maxHeight
+            strokeWeight: 7,
+            maxWidth: polygons[i].width,
+            maxHeight: polygons[i].height
 
         });
         flightPath.setMap(map);
@@ -42,10 +42,26 @@ function initMap() {
             editRoute(this.maxWidth, this.maxHeight);
         });
     }
+    addAll();
 }
 
 function findWay() {
     console.log('aaa');
+}
+
+function addAll() {
+    const list = document.querySelector('.list');
+    jsonData.forEach(marker => {
+        console.log(marker);
+        var newNode = document.createElement("p");
+        newNode.innerHTML = marker.title;
+        list.appendChild(newNode);
+    });
+}
+
+function closeEditRoad() {
+    const editRoute = document.querySelector('.editRoute');
+    editRoute.style.display = "none";
 }
 
 function editRoute(maxWidth, maxHeight) {
@@ -53,14 +69,14 @@ function editRoute(maxWidth, maxHeight) {
     const maxWidthPlaceholder = document.querySelector('.maxWidth');
     const maxHeightPlaceholder = document.querySelector('.maxHeight');
     editRoute.style.display = "block";
-    maxWidthPlaceholder.placeholder = maxWidth;
-    maxHeightPlaceholder.placeholder = maxHeight;
+    maxWidthPlaceholder.value = maxWidth;
+    maxHeightPlaceholder.value = maxHeight;
 }
 
-$.getJSON('markers.json', function(data) {
+$.getJSON('crossroads', function(data) {
     jsonData = data;
-});
-
-$.getJSON('polygons.json', function(data) {
-    polygons = data;
+    $.getJSON('roads', function(data) {
+        polygons = data;
+        initiation();
+    });
 });
