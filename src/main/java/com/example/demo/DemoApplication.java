@@ -43,8 +43,33 @@ public class DemoApplication {
         road3.setStart(crossroad3);
         road3.setEnd(crossroad4);
         Road road4 = new Road();
-        road4.setStart(crossroad2);
+        road4.setStart(crossroad1);
         road4.setEnd(crossroad4);
+        road1.setLength(new Double(10));
+        road1.setWidth(new Double(10));
+        road1.setHeight(new Double(10));
+        road1.setMaxLoad(new Double(10));
+        road2.setLength(new Double(10));
+        road2.setWidth(new Double(10));
+        road2.setHeight(new Double(10));
+        road2.setMaxLoad(new Double(10));
+        road3.setLength(new Double(10));
+        road3.setWidth(new Double(10));
+        road3.setHeight(new Double(10));
+        road3.setMaxLoad(new Double(10));
+        road4.setLength(new Double(10));
+        road4.setWidth(new Double(10));
+        road4.setHeight(new Double(1));
+        road4.setMaxLoad(new Double(10));
+        road1.setClosedForward(false);
+        road1.setClosedBackwards(false);
+        road2.setClosedForward(false);
+        road2.setClosedBackwards(false);
+        road3.setClosedForward(false);
+        road3.setClosedBackwards(false);
+        road4.setClosedForward(false);
+        road4.setClosedBackwards(false);
+
         crossroad1.setConnectedRoads(new ArrayList<>());
         crossroad2.setConnectedRoads(new ArrayList<>());
         crossroad3.setConnectedRoads(new ArrayList<>());
@@ -56,9 +81,12 @@ public class DemoApplication {
         crossroad3.getConnectedRoads().add(road2);
         crossroad3.getConnectedRoads().add(road3);
         crossroad4.getConnectedRoads().add(road3);
-        crossroad2.getConnectedRoads().add(road4);
+        crossroad1.getConnectedRoads().add(road4);
         crossroad4.getConnectedRoads().add(road4);
         Vehicle vehicle = new Vehicle();
+        vehicle.setHeight(new Double(1));
+        vehicle.setWidth(new Double(1));
+        vehicle.setWeight(new Double(1));
         CalculateRoute calculateRoute = new CalculateRoute(vehicle);
         HashMap<Crossroad, Crossroad> hashMap = calculateRoute.route(crossroad1, crossroad4, crossroads);
 

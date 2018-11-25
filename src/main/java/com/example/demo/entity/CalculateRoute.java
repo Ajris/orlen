@@ -2,6 +2,7 @@ package com.example.demo.entity;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 
 public class CalculateRoute {
@@ -12,7 +13,7 @@ public class CalculateRoute {
     public HashMap<Crossroad, Crossroad> route(Crossroad start, Crossroad finish, ArrayList<Crossroad> crossroads) {
         HashMap<Crossroad, Crossroad> daWai = new HashMap<>();
         List<Crossroad> queue = new ArrayList<>();
-        List<Crossroad> visited = new ArrayList<>(); //change to HashMap
+        HashSet<Crossroad> visited = new HashSet<>(); //change to HashMap
         daWai.put(start, null);
         visited.add(start);
         queue.add(start);
@@ -32,15 +33,8 @@ public class CalculateRoute {
                     u = road.getEnd();
                     direction = Direction.BACKWARDS;
                 }
-                for(Crossroad cr : crossroads) {
-                    if(u.equals(cr)) u = cr;
-                }
                 if(vehicle.canPass(road, direction)) {
-                    boolean flag = true;
-                    for (Crossroad crossroad : visited) {
-                        if (crossroad.equals(u)) flag = false;
-                    }
-                    if(flag) {
+                    if(!visited.contains(u)) {
                         daWai.put(u, v);
                         queue.add(u);
                         visited.add(u);
@@ -48,7 +42,6 @@ public class CalculateRoute {
                 }
             }
         }
-        //Check if route exists
         return null;
     }
 
