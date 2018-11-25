@@ -1,6 +1,7 @@
 var map;
 var markers;
 var polylines;
+var allMarkers = [];
 
 window.onload = function() {
     generate();
@@ -57,6 +58,7 @@ function generateMarkers() {
     google.maps.event.addListener(newMarker, 'click', function() {
         editMarker(this.id, this.position.lat(), this.position.lng());
     });
+    allMarkers.push(newMarker);
     newMarker.setMap(map);
 });
 }
@@ -180,4 +182,123 @@ function addMarkerList() {
     newNode.innerHTML = marker.title;
     list.appendChild(newNode);
 });
+}
+
+var listener = [];
+var markers =[];
+
+function findWay() {
+    var findWay = document.querySelector('.findWay');
+    findWay.style.display = "block";
+}
+
+function closeFindWay() {
+    var findWay = document.querySelector('.findWay');
+    findWay.style.display = "none";
+}
+
+function chooseMarker(context, index) {
+    for(var i=0; i<allMarkers.length; ++i) {
+        listener[i] = allMarkers[i].addListener('click', function() {
+            context.value = this.position;
+            markers[index] = this;
+            for(var j=0; j<allMarkers.length; ++j) {
+                google.maps.event.removeListener(listener[j]);
+            }
+        });
+    }
+}
+
+function findMyWay() {
+    var vehicleWidth = document.querySelector('.vehicleWidth');
+    var vehicleHeight = document.querySelector('.vehicleHeight');
+    var data ={
+        "vehicleWidth": vehicleWidth.value,
+        "vehicleHeight": vehicleHeight.value,
+        "startLng": marker[0].position.lng,
+        "startLat": marker[0].position.lat,
+        "endLng": marker[1].position.lng,
+        "endLat": marker[1].position.lat
+    };
+    $.ajax({
+        url: 'deleteRoute',
+        type: 'PUT',
+        contentType:'application/json',
+        data: JSON.stringify(data),
+        dataType:'json'
+    });
+    generate();
+}
+
+function addMarker() {
+    var myLatlng = new google.maps.LatLng(52.587711, 19.669549);
+    var markerOptions = {
+        position: myLatlng,
+        draggable: true
+    };
+    var newMarker = new google.maps.Marker(markerOptions);
+    newMarker.setMap(map);
+
+    var data = {
+        "longitude" : markerOptions.position.lat(),
+        "latitude" : markerOptions.position.lng()
+    };
+
+    $.ajax({
+        url: 'addCrossroad',
+        type: 'PUT',
+        contentType:'application/json',
+        data: JSON.stringify(data),
+        dataType:'json'
+    });
+    setTimeout(generate(),1000);
+}
+
+function addRoad() {
+    var addRoad = document.querySelector('.addRoad');
+    addRoad.style.display = "block";
+}
+
+function closeAddRoad() {
+    var addRoad = document.querySelector('.addRoad');
+    addRoad.style.display = "none";
+}
+function pushAddRoad() {
+    console.log(markers[0])
+    var roadWidth = document.querySelector('.roadWidth');
+    var roadHeight = document.querySelector('.roadHeight');
+    var data = {
+        "c1": {
+            "id": markers[0].id,
+            "longitude": markers[0].position.lat(),
+            "latitude": markers[0].position.lng()
+        },
+        "c2": {
+            "id": markers[1].id,
+            "longitude": markers[1].position.lat(),
+            "latitude": markers[1].position.lng()
+        },
+        "r1": {
+            "start": {
+                "id": markers[0].id,
+                "longitude": markers[0].position.lat(),
+                "latitude": markers[0].position.lng()
+            },
+            "end": {
+                "id": markers[1].id,
+                "longitude": markers[1].position.lat(),
+                "latitude": markers[1].position.lng(),
+            },
+            "width": roadWidth.value,
+            "height": roadHeight.value
+        }
+    };
+    $.ajax({
+        url: 'addRoad',
+        type: 'PUT',
+        contentType:'application/json',
+        data: JSON.stringify(data),
+        dataType:'json'
+    });
+    generate();
 }

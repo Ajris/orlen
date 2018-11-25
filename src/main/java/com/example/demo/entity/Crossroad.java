@@ -24,7 +24,7 @@ public class Crossroad {
     private Double latitude;
     private Double longitude;
 
-    private List<Road> connectedRoads;
+    private List<Road> connectedRoads = new ArrayList<>();
 
     public String getId() {
         return id;

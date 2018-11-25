@@ -2,10 +2,12 @@ package com.example.demo.controller;
 
 import com.example.demo.entity.Crossroad;
 import com.example.demo.entity.Road;
+import com.example.demo.entity.RouteCombineWrapper;
 import com.example.demo.repository.CrossroadRepository;
 import com.example.demo.repository.RoadRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -22,6 +24,31 @@ public class CrossroadController {
 
     @Autowired
     private RoadRepository roadRepository;
+
+    @PutMapping(value = "/addCrossroad")
+    public void addCrossroad(@RequestBody Crossroad crossroad){
+        System.out.println(crossroad);
+        crossroadRepository.save(crossroad);
+    }
+
+    @PutMapping(value = "/addRoad")
+    public void addRoad(@RequestBody RouteCombineWrapper routeCombineWrapper){
+        System.out.println(routeCombineWrapper.getC1());
+        System.out.println(routeCombineWrapper.getC2());
+        System.out.println(routeCombineWrapper.getR1());
+
+
+        Crossroad toSave1 = crossroadRepository.findById(routeCombineWrapper.getC1().getId()).get();
+        Crossroad toSave2 = crossroadRepository.findById(routeCombineWrapper.getC2().getId()).get();
+
+
+        Road road = roadRepository.save(routeCombineWrapper.getR1());
+
+        toSave1.getConnectedRoads().add(road);
+        toSave2.getConnectedRoads().add(road);
+        crossroadRepository.save(toSave1);
+        crossroadRepository.save(toSave2);
+    }
 
     @PutMapping(value = "/setroad")
     public void setRoad(@RequestBody Road road) {
@@ -66,19 +93,25 @@ public class CrossroadController {
         if (crossroad.getConnectedRoads() != null)
             crossroad.getConnectedRoads()
                     .forEach((road -> {
-
+                        System.out.println(road);
                         if (road.getEnd().getId().equals(crossroad.getId())) {
-                            road.setEnd(Crossroad.builder()
-                                    .latitude(crossroad1.getLatitude())
-                                    .longitude(crossroad1.getLongitude())
-                                    .build());
+
+//                            road.setEnd(Crossroad.builder()
+//                                    .latitude(crossroad1.getLatitude())
+//                                    .longitude(crossroad1.getLongitude())
+//                                    .build());
+                            road.getEnd().setLongitude(crossroad1.getLongitude());
+                            road.getEnd().setLatitude(crossroad1.getLatitude());
+
 
                         }
                         if(road.getStart().getId().equals(crossroad.getId())){
-                            road.setStart(Crossroad.builder()
-                                    .latitude(crossroad1.getLatitude())
-                                    .longitude(crossroad1.getLongitude())
-                                    .build());
+//                            road.setStart(Crossroad.builder()
+//                                    .latitude(crossroad1.getLatitude())
+//                                    .longitude(crossroad1.getLongitude())
+//                                    .build());
+                            road.getStart().setLongitude(crossroad1.getLongitude());
+                            road.getStart().setLatitude(crossroad1.getLatitude());
                         }
                         roadRepository.save(road);
                     }));

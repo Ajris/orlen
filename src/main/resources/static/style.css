@@ -49,7 +49,7 @@ header > img {
     font-family: Raleway;
 }
 
-.editRoute, .editMarker {
+.editRoute, .editMarker, .findWay, .addRoad {
     padding: 10px 0 10px 0;
     width: 400px;
     position: absolute;
@@ -65,7 +65,7 @@ header > img {
     max-height: calc(100% - 230px);
 }
 
-.editRoute > h2, .editMarker > h2 {
+.editRoute > h2, .editMarker > h2, .findWay > h2, .addRoad > h2 {
     text-align: center;
     font-family: Raleway;
     font-weight: 300;

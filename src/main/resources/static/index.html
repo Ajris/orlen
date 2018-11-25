@@ -11,7 +11,6 @@
 <body>
 <header>
     <img src="https://www.orlen.pl/Style%20Library/_iMg/logo.png"/>
-    <h1 class="companyName">PKN Orlen</h1>
     <div style="height: 100%; float: right">
         <div class="menu_container">
             <a href="#">
@@ -24,12 +23,12 @@
             </a>
         </div>
         <div class="menu_container">
-            <a href="#" onclick="editRoute()">
-                <span>Edytuj trasę</span>
+            <a href="#" onclick="addRoad()">
+                <span>Dodaj trasę</span>
             </a>
         </div>
         <div class="menu_container">
-            <a href="#">
+            <a href="#" onclick="addMarker()">
                 <span>Dodaj punkt pośredni</span>
             </a>
         </div>
@@ -65,6 +64,33 @@
     <input class="attributeInput lng"/>
     <div class="button" onclick="updateMarker()">Zapisz</div>
     <div class="button" onclick="closeEditMarker()">Anuluj</div>
+</div>
+<div class="findWay">
+    <h2>Znajdź trasę</h2>
+    <p class="attributeTitle">Szerokość pojazdu:</p>
+    <input class="attributeInput vehicleWidth" placeholder="10"/>
+    <p class="attributeTitle">Wysokość pojazdu:</p>
+    <input class="attributeInput vehicleHeight" placeholder="3"/>
+    <p class="attributeTitle">Znacznik początkowy:</p>
+    <input class="attributeInput startMarker" placeholder="Kliknij, aby wybrać" onclick="chooseMarker(this, 0)"/>
+    <p class="attributeTitle">Znacznik końcowy:</p>
+    <input class="attributeInput startMarker" placeholder="Kliknij, aby wybrać" onclick="chooseMarker(this, 1)"/>
+    <div class="button" onclick="findMyWay()">Znajdź</div>
+    <div class="button" onclick="closeFindWay()">Anuluj</div>
+</div>
+
+<div class="addRoad">
+    <h2>Dodaj trasę</h2>
+    <p class="attributeTitle">Szerokość trasy:</p>
+    <input class="attributeInput roadWidth" placeholder="10"/>
+    <p class="attributeTitle">Wysokość trasy:</p>
+    <input class="attributeInput roadHeight" placeholder="3"/>
+    <p class="attributeTitle">Znacznik początkowy:</p>
+    <input class="attributeInput startMarker" placeholder="Kliknij, aby wybrać" onclick="chooseMarker(this, 0)"/>
+    <p class="attributeTitle">Znacznik końcowy:</p>
+    <input class="attributeInput startMarker" placeholder="Kliknij, aby wybrać" onclick="chooseMarker(this, 1)"/>
+    <div class="button" onclick="pushAddRoad()">Dodaj</div>
+    <div class="button" onclick="closeAddRoad()">Anuluj</div>
 </div>
 <div id="map"></div>
 </body>
