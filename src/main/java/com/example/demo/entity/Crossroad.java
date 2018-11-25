@@ -65,14 +65,14 @@ public class Crossroad {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        if (!super.equals(o)) return false;
         Crossroad crossroad = (Crossroad) o;
-        return  Objects.equals(latitude, crossroad.latitude) &&
+        return Objects.equals(id, crossroad.id) &&
+                Objects.equals(latitude, crossroad.latitude) &&
                 Objects.equals(longitude, crossroad.longitude);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), latitude, longitude);
+        return Objects.hash(id, latitude, longitude, connectedRoads);
     }
 }

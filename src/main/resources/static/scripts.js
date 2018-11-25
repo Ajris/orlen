@@ -209,6 +209,12 @@ function chooseMarker(context, index) {
     }
 }
 
+var result = null;
+function ajaxCallBack(retString){
+    result = retString;
+    setOnMap();
+}
+
 function findMyWay() {
     var vehicleWidth = document.querySelector('.vehicleWidth');
     var vehicleHeight = document.querySelector('.vehicleHeight');
@@ -233,9 +239,34 @@ function findMyWay() {
         type: 'PUT',
         contentType:'application/json',
         data: JSON.stringify(data),
-        dataType:'json'
+        dataType:'json',
+        success: function(data) {
+            ajaxCallBack(data);
+            return data;
+        }
     });
-    generate({lat: map.getCenter().lat(), lng: map.getCenter().lng()}, map.getZoom());
+}
+
+function setOnMap() {
+    console.log(result);
+    for(var i=0; i<result.length - 1; ++i) {
+        var polylineOptions = {
+                path: [{
+                    lng: result[i].latitude,
+                    lat: result[i].longitude
+                },
+                {
+                    lng: result[i+1].latitude,
+                    lat: result[i+1].longitude
+                }],
+            geodesic: true,
+            strokeColor: '#02A310',
+            strokeOpacity: 1.0,
+            strokeWeight: 13
+        }
+        var newRoad = new google.maps.Polyline(polylineOptions);
+        newRoad.setMap(map);
+    };
 }
 
 function addMarker() {

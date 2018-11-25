@@ -40,14 +40,16 @@ public class CrossroadController {
         Map<Crossroad, Crossroad> map = calculateRoute.route(start,
                 end,
                 crossroadRepository.findAll());
-        System.out.println(map);
-
-        return convertRoute(map, end);
+        List<Crossroad> solution = convertRoute(map, end);
+        solution.add(start);
+        System.out.println(solution.size());
+        return solution;
     }
 
     public List<Crossroad> convertRoute(Map<Crossroad, Crossroad> hashMap, Crossroad lastCrossroad) {
         List<Crossroad> list = new ArrayList<>();
         while (lastCrossroad != null) {
+            System.out.println(lastCrossroad);
             list.add(lastCrossroad);
             lastCrossroad = hashMap.get(lastCrossroad);
         }
