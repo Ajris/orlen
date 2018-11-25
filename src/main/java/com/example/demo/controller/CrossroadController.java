@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import com.example.demo.entity.CalculateRoute;
 import com.example.demo.entity.Crossroad;
 import com.example.demo.entity.Road;
 import com.example.demo.repository.CrossroadRepository;
@@ -7,6 +8,7 @@ import com.example.demo.repository.RoadRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -21,8 +23,16 @@ public class CrossroadController {
     private RoadRepository roadRepository;
 
     @PutMapping(value = "/setroad")
-    public void setRoad(Road road){
-        roadRepository.save(road);
+    public void setRoad(@RequestBody Road road){
+        Road toSaveRoad = roadRepository.findById(road.getId()).get();
+        toSaveRoad.setWidth(road.getWidth());
+        toSaveRoad.setHeight(road.getHeight());
+        roadRepository.save(toSaveRoad);
+    }
+
+    @PutMapping(value = "/setCrossroad")
+    public void setCrossroad(@RequestBody Crossroad crossroad){
+        crossroadRepository.save(crossroad);
     }
 
 //    @PutMapping(value = "/calculateNewRoad")

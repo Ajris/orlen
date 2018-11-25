@@ -13,35 +13,39 @@ function initiation() {
         var myLatlng = new google.maps.LatLng(marker.longitude, marker.latitude);
         var newMarker = new google.maps.Marker({
             position: myLatlng,
+            id: marker.id,
             title: 'Hello World!',
             draggable: true
+        });
+        google.maps.event.addListener(newMarker, 'dragend', function() {
+            sendNewMarkerInfo(this);
         });
         newMarker.setMap(map);
     });
 
-    for(var i=0; i<polygons.length; i++) {
+    polygons.forEach(polygon => {
         var flightPath = new google.maps.Polyline({
             path: [{
-                lng: polygons[i].start.latitude,
-                lat: polygons[i].start.longitude
+                lng: polygon.start.latitude,
+                lat: polygon.start.longitude
             },
                 {
-                    lng: polygons[i].end.latitude,
-                    lat: polygons[i].end.longitude
+                    lng: polygon.end.latitude,
+                    lat: polygon.end.longitude
                 }],
             geodesic: true,
             strokeColor: '#005489',
             strokeOpacity: 1.0,
             strokeWeight: 7,
-            maxWidth: polygons[i].width,
-            maxHeight: polygons[i].height
-
+            id: polygon.id,
+            maxWidth: polygon.width,
+            maxHeight: polygon.height
         });
         flightPath.setMap(map);
         google.maps.event.addListener(flightPath, 'click', function() {
-            editRoute(this.maxWidth, this.maxHeight);
+            editRoute(this.maxWidth, this.maxHeight, this.id);
         });
-    }
+    });
     addAll();
 }
 
@@ -58,16 +62,50 @@ function addAll() {
         list.appendChild(newNode);
     });
 }
+function sendNewMarkerInfo(marker) {
+    let data = {
+        "id": marker.id,
+        "latitude": marker.position.lng(),
+        "longitude": marker.position.lat()
+    };
+    $.ajax({
+        url: 'setCrossroad',
+        type: 'PUT',
+        contentType:'application/json',
+        data: JSON.stringify(data),
+        dataType:'json'
+    });
+}
+
+function updateRoute() {
+    var routeId = document.querySelector('.routeId');
+    var maxWidth = document.querySelector('.maxWidth');
+    var maxHeight = document.querySelector('.maxHeight');
+    var data ={
+        "id": routeId.value,
+        "width": maxWidth.value,
+        "height": maxHeight.value,
+    };
+    $.ajax({
+        url: 'setroad',
+        type: 'PUT',
+        contentType:'application/json',
+        data: JSON.stringify(data),
+        dataType:'json'
+    });
+}
 
 function closeEditRoad() {
     const editRoute = document.querySelector('.editRoute');
     editRoute.style.display = "none";
 }
 
-function editRoute(maxWidth, maxHeight) {
+function editRoute(maxWidth, maxHeight, id) {
     const editRoute = document.querySelector('.editRoute');
+    const idPlaceHolder = document.querySelector('.routeId');
     const maxWidthPlaceholder = document.querySelector('.maxWidth');
     const maxHeightPlaceholder = document.querySelector('.maxHeight');
+    idPlaceHolder.value = id;
     editRoute.style.display = "block";
     maxWidthPlaceholder.value = maxWidth;
     maxHeightPlaceholder.value = maxHeight;

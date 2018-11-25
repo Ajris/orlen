@@ -42,13 +42,14 @@
 </div>
 <div class="editRoute">
     <h2>Edytuj trasę</h2>
+    <input class="attributeInput routeId"/>
     <p class="attributeTitle">Szerokość drogi:</p>
     <input class="attributeInput maxWidth"/>
     <p class="attributeTitle">Maksymalna wysokość:</p>
     <input class="attributeInput maxHeight"/>
     <p class="attributeTitle">Długość drogi:</p>
     <p class="attributeInput maxWidth">1</p>
-    <div class="button">Zapisz</div>
+    <div class="button" onclick="updateRoute()">Zapisz</div>
     <div class="button" onclick="closeEditRoad()">Anuluj</div>
 </div>
 <div id="map"></div>

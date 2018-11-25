@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CalculateRoute {
-    public List<Crossroad> route(Crossroad start, Crossroad finish) {
+    public static List<Crossroad> route(Crossroad start, Crossroad finish) {
         List<Crossroad> visited = new ArrayList<>();
         List<Crossroad> queue = new ArrayList<>();
         List<Crossroad> daWai = new ArrayList<>();
