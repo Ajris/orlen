@@ -22,6 +22,13 @@ public class Road {
     private Double length;
     private Double height;
     private Double maxLoad;
+    private boolean closedForward;
+    private boolean closedBackwards;
+
+    public boolean isClosed(Direction direction) {
+        if(direction == Direction.FORWARD) return closedForward;
+        else return  closedBackwards;
+    }
 
     public Crossroad getStart() {
         return start;
