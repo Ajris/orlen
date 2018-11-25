@@ -22,4 +22,60 @@ public class Road {
     private Double length;
     private Double height;
     private Double maxLoad;
+
+    public Crossroad getStart() {
+        return start;
+    }
+
+    public void setStart(Crossroad start) {
+        this.start = start;
+    }
+
+    public Crossroad getEnd() {
+        return end;
+    }
+
+    public void setEnd(Crossroad end) {
+        this.end = end;
+    }
+
+    public Double getWidth() {
+        return width;
+    }
+
+    public void setWidth(Double width) {
+        this.width = width;
+    }
+
+    public Double getLength() {
+        return length;
+    }
+
+    public void setLength(Double length) {
+        this.length = length;
+    }
+
+    public Double getHeight() {
+        return height;
+    }
+
+    public void setHeight(Double height) {
+        this.height = height;
+    }
+
+    public Double getMaxLoad() {
+        return maxLoad;
+    }
+
+    public void setMaxLoad(Double maxLoad) {
+        this.maxLoad = maxLoad;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 }
