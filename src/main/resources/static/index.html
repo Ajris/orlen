@@ -11,6 +11,7 @@
 <body>
 <header>
     <img src="https://www.orlen.pl/Style%20Library/_iMg/logo.png"/>
+    <h1 class="companyName">PKN Orlen</h1>
     <div style="height: 100%; float: right">
         <div class="menu_container">
             <a href="#">
@@ -42,6 +43,7 @@
 </div>
 <div class="editRoute">
     <h2>Edytuj trasę</h2>
+    <p class="attributeTitle">Numer drogi:</p>
     <input class="attributeInput routeId"/>
     <p class="attributeTitle">Szerokość drogi:</p>
     <input class="attributeInput maxWidth"/>
@@ -50,7 +52,19 @@
     <p class="attributeTitle">Długość drogi:</p>
     <p class="attributeInput maxWidth">1</p>
     <div class="button" onclick="updateRoute()">Zapisz</div>
+    <div class="button" onclick="deleteRoad()">Usuń</div>
     <div class="button" onclick="closeEditRoad()">Anuluj</div>
+</div>
+<div class="editMarker">
+    <h2>Edytuj marker</h2>
+    <p class="attributeTitle">Numer markera:</p>
+    <input class="attributeInput markerId"/>
+    <p class="attributeTitle">Szerokość markera:</p>
+    <input class="attributeInput lat"/>
+    <p class="attributeTitle">Długość markera:</p>
+    <input class="attributeInput lng"/>
+    <div class="button" onclick="updateMarker()">Zapisz</div>
+    <div class="button" onclick="closeEditMarker()">Anuluj</div>
 </div>
 <div id="map"></div>
 </body>

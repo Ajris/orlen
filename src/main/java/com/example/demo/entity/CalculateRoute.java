@@ -23,12 +23,15 @@ public class CalculateRoute {
                 } else {
                     u = road.getEnd();
                 }
+                boolean flag = true;
                 for(Crossroad crossroad : visited) {
-                    if(crossroad.equals(u)) break;
+                    if(crossroad.equals(u)) flag = false;
                 }
-                daWai.add(v);
-                queue.add(u);
-                visited.add(u);
+                if(flag) {
+                    daWai.add(v);
+                    queue.add(u);
+                    visited.add(u);
+                }
             }
         }
         return null;

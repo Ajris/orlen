@@ -13,11 +13,24 @@ html, body {
 
 header {
     height: 70px;
-    width: 70%;
-    padding: 20px 15%;
+    width: calc(100% - 80px);
+    padding: 20px 40px;
     box-shadow: 0px 0px 15px 5px #0001;
     position: absolute;
     z-index: 9;
+}
+
+header > img {
+    vertical-align: middle;
+    margin-right: 30px;
+}
+
+.companyName {
+    font-family: Raleway;
+    font-weight: 300;
+    display: inline-block;
+    margin: 20px 0;
+    vertical-align: middle;
 }
 
 .menu_container {
@@ -36,8 +49,8 @@ header {
     font-family: Raleway;
 }
 
-.editRoute {
-    padding: 10px 0 40px 0;
+.editRoute, .editMarker {
+    padding: 10px 0 10px 0;
     width: 400px;
     position: absolute;
     bottom: 40px;
@@ -48,9 +61,11 @@ header {
     box-shadow: 0px 0px 15px 5px #0001;
     display: none;
     text-align: center;
+    overflow-y: scroll;
+    max-height: calc(100% - 230px);
 }
 
-.editRoute > h2 {
+.editRoute > h2, .editMarker > h2 {
     text-align: center;
     font-family: Raleway;
     font-weight: 300;
@@ -80,9 +95,9 @@ header {
 }
 
 .button {
-    width: 45%;
+    width: 31%;
     display: inline-block;
-    margin-top: 25px;
+    margin: 25px 0;
     font-family: Raleway;
     cursor: pointer;
 }
@@ -99,4 +114,7 @@ header {
     box-shadow: 0px 0px 15px 5px #0001;
     text-align: center;
     font-family: Raleway;
+    overflow-y: scroll;
+    max-height: calc(100% - 230px);
+    display: none;
 }
