@@ -1,20 +1,21 @@
 package com.example.demo.controller;
 
+import com.example.demo.entity.CalculateRoute;
 import com.example.demo.entity.Crossroad;
 import com.example.demo.entity.Road;
 import com.example.demo.entity.RouteCombineWrapper;
+import com.example.demo.entity.RouteSolverWrapper;
 import com.example.demo.repository.CrossroadRepository;
 import com.example.demo.repository.RoadRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.annotation.PostConstruct;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 public class CrossroadController {
@@ -26,13 +27,35 @@ public class CrossroadController {
     private RoadRepository roadRepository;
 
     @PutMapping(value = "/addCrossroad")
-    public void addCrossroad(@RequestBody Crossroad crossroad){
+    public void addCrossroad(@RequestBody Crossroad crossroad) {
         System.out.println(crossroad);
         crossroadRepository.save(crossroad);
     }
 
+    @PutMapping(value = "/findRoute")
+    public List<Crossroad> createRoute(@RequestBody RouteSolverWrapper routeSolverWrapper) {
+        CalculateRoute calculateRoute = new CalculateRoute(routeSolverWrapper.getVehicle());
+        Crossroad start = crossroadRepository.findById(routeSolverWrapper.getStart().getId()).get();
+        Crossroad end = crossroadRepository.findById(routeSolverWrapper.getEnd().getId()).get();
+        Map<Crossroad, Crossroad> map = calculateRoute.route(start,
+                end,
+                crossroadRepository.findAll());
+        System.out.println(map);
+
+        return convertRoute(map, end);
+    }
+
+    public List<Crossroad> convertRoute(Map<Crossroad, Crossroad> hashMap, Crossroad lastCrossroad) {
+        List<Crossroad> list = new ArrayList<>();
+        while (lastCrossroad != null) {
+            list.add(lastCrossroad);
+            lastCrossroad = hashMap.get(lastCrossroad);
+        }
+        return list;
+    }
+
     @PutMapping(value = "/addRoad")
-    public void addRoad(@RequestBody RouteCombineWrapper routeCombineWrapper){
+    public void addRoad(@RequestBody RouteCombineWrapper routeCombineWrapper) {
         System.out.println(routeCombineWrapper.getC1());
         System.out.println(routeCombineWrapper.getC2());
         System.out.println(routeCombineWrapper.getR1());
@@ -40,7 +63,6 @@ public class CrossroadController {
 
         Crossroad toSave1 = crossroadRepository.findById(routeCombineWrapper.getC1().getId()).get();
         Crossroad toSave2 = crossroadRepository.findById(routeCombineWrapper.getC2().getId()).get();
-
 
         Road road = roadRepository.save(routeCombineWrapper.getR1());
 
@@ -58,7 +80,7 @@ public class CrossroadController {
         roadRepository.save(toSaveRoad);
     }
 
-//    @PostConstruct
+    //    @PostConstruct
     public void justAddRoutes() {
         List<Crossroad> crossroads = crossroadRepository.findAll();
         Road road = new Road();
@@ -105,7 +127,7 @@ public class CrossroadController {
 
 
                         }
-                        if(road.getStart().getId().equals(crossroad.getId())){
+                        if (road.getStart().getId().equals(crossroad.getId())) {
 //                            road.setStart(Crossroad.builder()
 //                                    .latitude(crossroad1.getLatitude())
 //                                    .longitude(crossroad1.getLongitude())
@@ -123,7 +145,7 @@ public class CrossroadController {
         roadRepository.delete(road);
     }
 
-//        @PostConstruct
+    //        @PostConstruct
     public void niechGmaciozamknieryja() {
         List<Road> currentRoads = roadRepository.findAll();
         currentRoads

@@ -4,16 +4,16 @@ var polylines;
 var allMarkers = [];
 
 window.onload = function() {
-    generate();
+    generate({lat: 52.587711, lng: 19.669549}, 14);
 }
 
-function generate() {
+function generate(LngLat, Zoom) {
     setTimeout(function() {
         $.getJSON('crossroads', function(data) {
             markers = data;
             $.getJSON('roads', function(data) {
                 polylines = data;
-                initiateMaps();
+                initiateMaps(LngLat, Zoom);
             });
         });
     },500);
@@ -21,10 +21,10 @@ function generate() {
     closeEditRoad();
 }
 
-function initiateMaps() {
+function initiateMaps(LngLat, Zoom) {
     let mapOptions =  {
-        center: {lat: 52.587711, lng: 19.669549},
-        zoom: 14,
+        center: LngLat,
+        zoom: Zoom,
         mapTypeId: google.maps.MapTypeId.ROADMAP,
         disableDefaultUI: true
     }
@@ -138,7 +138,7 @@ function sendNewMarkerInfo(marker) {
         data: JSON.stringify(data),
         dataType:'json'
     });
-    generate();
+    generate({lat: map.getCenter().lat(), lng: map.getCenter().lng()}, map.getZoom());
 }
 
 function updateRoute() {
@@ -157,7 +157,7 @@ function updateRoute() {
         data: JSON.stringify(data),
         dataType:'json'
     });
-    generate();
+    generate({lat: map.getCenter().lat(), lng: map.getCenter().lng()}, map.getZoom());
 }
 
 function deleteRoad() {
@@ -172,7 +172,7 @@ function deleteRoad() {
         data: JSON.stringify(data),
         dataType:'json'
     });
-    generate();
+    generate({lat: map.getCenter().lat(), lng: map.getCenter().lng()}, map.getZoom());
 }
 
 function addMarkerList() {
@@ -213,21 +213,29 @@ function findMyWay() {
     var vehicleWidth = document.querySelector('.vehicleWidth');
     var vehicleHeight = document.querySelector('.vehicleHeight');
     var data ={
-        "vehicleWidth": vehicleWidth.value,
-        "vehicleHeight": vehicleHeight.value,
-        "startLng": marker[0].position.lng,
-        "startLat": marker[0].position.lat,
-        "endLng": marker[1].position.lng,
-        "endLat": marker[1].position.lat
+        "start": {
+            "id": markers[0].id,
+            "longitude": markers[0].position.lat(),
+            "latitude": markers[0].position.lng()
+        },
+        "end": {
+            "id": markers[1].id,
+            "longitude": markers[1].position.lat(),
+            "latitude": markers[1].position.lng()
+        },
+        "vehicle": {
+            "width": vehicleWidth.value,
+            "height": vehicleHeight.value
+        }
     };
     $.ajax({
-        url: 'deleteRoute',
+        url: 'findRoute',
         type: 'PUT',
         contentType:'application/json',
         data: JSON.stringify(data),
         dataType:'json'
     });
-    generate();
+    generate({lat: map.getCenter().lat(), lng: map.getCenter().lng()}, map.getZoom());
 }
 
 function addMarker() {
@@ -251,7 +259,7 @@ function addMarker() {
         data: JSON.stringify(data),
         dataType:'json'
     });
-    setTimeout(generate(),1000);
+    setTimeout(generate({lat: map.getCenter().lat(), lng: map.getCenter().lng()}, map.getZoom()));
 }
 
 function addRoad() {
@@ -300,5 +308,5 @@ function pushAddRoad() {
         data: JSON.stringify(data),
         dataType:'json'
     });
-    generate();
+    generate({lat: map.getCenter().lat(), lng: map.getCenter().lng()}, map.getZoom());
 }
