@@ -1,6 +1,6 @@
-package com.example.demo.repository;
+package com.example.hackyeah.repository;
 
-import com.example.demo.entity.Road;
+import com.example.hackyeah.entity.Road;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 

@@ -1,4 +1,4 @@
-package com.example.demo.entity;
+package com.example.hackyeah.entity;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -24,11 +24,12 @@ public class CalculateRoute {
 
         while (!queue.isEmpty()) {
             Crossroad v = queue.get(0);
+
             queue.remove(0);
             if (compareIt(v, finish)) {
-                System.out.println(daWai.size());
                 return daWai;
             }
+            System.out.println(v);
             for (Road road : crossroads.stream()
                     .filter(v1 -> compareIt(v1, v))
                     .findAny()
@@ -40,12 +41,10 @@ public class CalculateRoute {
                 } else {
                     u = road.getEnd();
                 }
-                System.out.println(u);
-                if (visited.stream().filter(x -> compareIt(x, u)).count() <= 0) {
-                    System.out.println("=>" + u);
-                    daWai.put(u, v);
-                    queue.add(u);
-                    visited.add(u);
+                if (visited.stream().filter(x -> compareIt(x, v)).count() <= 0) {
+                    daWai.put(v, u);
+                    queue.add(v);
+                    visited.add(v);
                 }
             }
         }
