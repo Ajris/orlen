@@ -1,13 +1,11 @@
 package com.example.hackyeah.controller;
 
 import com.example.hackyeah.entity.Crossroad;
-import com.example.hackyeah.repository.CrossroadRepository;
 import com.example.hackyeah.repository.RoadRepository;
 import com.example.hackyeah.service.CrossroadService;
-import org.junit.Before;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -33,8 +31,73 @@ public class CrossroadControllerTest {
     @MockBean
     private CrossroadService crossroadServiceMock;
 
-    @MockBean
-    private RoadRepository roadRepository;
+    @Test
+    public void addCrossroad() throws Exception {
+        Crossroad c1 = Crossroad.builder()
+                .id("1")
+                .latitude(1.1)
+                .longitude(1.2)
+                .build();
+
+        when(crossroadServiceMock.save(c1))
+                .thenReturn(c1);
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        String content = objectMapper.writeValueAsString(c1);
+
+        mvc.perform(MockMvcRequestBuilders.post("/crossroads")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(content)
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+
+        verify(crossroadServiceMock, times(1))
+                .save(c1);
+        verifyNoMoreInteractions(crossroadServiceMock);
+    }
+
+
+    @Test
+    public void setCrossroad() throws Exception {
+        Crossroad c1 = Crossroad.builder()
+                .id("1")
+                .latitude(1.1)
+                .longitude(1.2)
+                .build();
+
+        when(crossroadServiceMock.save(c1))
+                .thenReturn(c1);
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        String content = objectMapper.writeValueAsString(c1);
+
+        mvc.perform(MockMvcRequestBuilders.put("/crossroads")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(content)
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+
+        verify(crossroadServiceMock, times(1))
+                .save(c1);
+        verifyNoMoreInteractions(crossroadServiceMock);
+    }
+
+    @Test
+    public void deleteCrossroad() throws Exception {
+        String id = "1";
+
+        doNothing()
+                .when(crossroadServiceMock)
+                .deleteById(id);
+
+        mvc.perform(MockMvcRequestBuilders.delete("/crossroads/" + id)
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+
+        verify(crossroadServiceMock, times(1))
+                .deleteById(id);
+        verifyNoMoreInteractions(crossroadServiceMock);
+    }
 
     @Test
     public void getCrossroads() throws Exception {

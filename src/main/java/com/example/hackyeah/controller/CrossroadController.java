@@ -20,9 +20,6 @@ public class CrossroadController {
     @Autowired
     private CrossroadService crossroadService;
 
-    @Autowired
-    private RoadRepository roadRepository;
-
     @GetMapping(value = "/crossroads")
     public List<Crossroad> getCrossroads() {
         return crossroadService.findAll();
@@ -39,38 +36,7 @@ public class CrossroadController {
     }
 
     @PutMapping(value = "/crossroads")
-    public void setCrossroad(@RequestBody Crossroad crossroad1) {
-        Crossroad crossroad = crossroadService.findById(crossroad1.getId());
-        crossroad.setLatitude(crossroad1.getLatitude());
-        crossroad.setLongitude(crossroad1.getLongitude());
-        System.out.println(crossroad);
-        if (crossroad.getConnectedRoads() != null)
-            crossroad.getConnectedRoads()
-                    .forEach((road -> {
-                        System.out.println(road);
-                        if (road.getEnd().getId().equals(crossroad.getId())) {
-
-//                            road.setEnd(Crossroad.builder()
-//                                    .latitude(crossroad1.getLatitude())
-//                                    .longitude(crossroad1.getLongitude())
-//                                    .build());
-                            road.getEnd().setLongitude(crossroad1.getLongitude());
-                            road.getEnd().setLatitude(crossroad1.getLatitude());
-
-
-                        }
-                        if (road.getStart().getId().equals(crossroad.getId())) {
-//                            road.setStart(Crossroad.builder()
-//                                    .latitude(crossroad1.getLatitude())
-//                                    .longitude(crossroad1.getLongitude())
-//                                    .build());
-                            road.getStart().setLongitude(crossroad1.getLongitude());
-                            road.getStart().setLatitude(crossroad1.getLatitude());
-                        }
-                        roadRepository.save(road);
-                    }));
+    public void setCrossroad(@RequestBody Crossroad crossroad) {
         crossroadService.save(crossroad);
     }
-
-
 }
