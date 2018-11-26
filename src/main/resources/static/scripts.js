@@ -160,8 +160,8 @@ function updateRoute() {
     generate({lat: map.getCenter().lat(), lng: map.getCenter().lng()}, map.getZoom());
 }
 
-function deleteRoad() {
-    var routeId = document.querySelector('.routeId');
+function deleteMarker() {
+    var routeId = document.querySelector('.markerId');
     var data ={
         "id": routeId.value
     };
@@ -182,6 +182,17 @@ function addMarkerList() {
     newNode.innerHTML = marker.title;
     list.appendChild(newNode);
 });
+}
+
+function deleteCrossroad() {
+    var crossroadId = document.querySelector('.markerId');
+    $.ajax({
+        url: 'crossroads/'+crossroadId.value,
+        type: 'DELETE',
+        contentType:'application/json',
+        dataType:'json'
+    });
+    generate();
 }
 
 var listener = [];

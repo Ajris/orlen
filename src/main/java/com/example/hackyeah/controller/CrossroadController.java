@@ -1,10 +1,12 @@
 package com.example.hackyeah.controller;
 
 import com.example.hackyeah.entity.Crossroad;
-import com.example.hackyeah.repository.CrossroadRepository;
 import com.example.hackyeah.repository.RoadRepository;
+import com.example.hackyeah.service.CrossroadService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -16,21 +18,29 @@ import java.util.List;
 public class CrossroadController {
 
     @Autowired
-    private CrossroadRepository crossroadRepository;
+    private CrossroadService crossroadService;
 
     @Autowired
     private RoadRepository roadRepository;
 
-    @PostMapping(value = "/crossroads")
-    public void addCrossroad(@RequestBody Crossroad crossroad) {
-        crossroadRepository.save(crossroad);
+    @GetMapping(value = "/crossroads")
+    public List<Crossroad> getCrossroads() {
+        return crossroadService.findAll();
     }
 
+    @PostMapping(value = "/crossroads")
+    public void addCrossroad(@RequestBody Crossroad crossroad) {
+        crossroadService.save(crossroad);
+    }
+
+    @DeleteMapping(value = "/crossroads/{id}")
+    public void deleteCrossroad(@PathVariable String id) {
+        crossroadService.deleteById(id);
+    }
 
     @PutMapping(value = "/crossroads")
     public void setCrossroad(@RequestBody Crossroad crossroad1) {
-        Crossroad crossroad = crossroadRepository.findById(crossroad1.getId())
-                .get();
+        Crossroad crossroad = crossroadService.findById(crossroad1.getId());
         crossroad.setLatitude(crossroad1.getLatitude());
         crossroad.setLongitude(crossroad1.getLongitude());
         System.out.println(crossroad);
@@ -59,12 +69,8 @@ public class CrossroadController {
                         }
                         roadRepository.save(road);
                     }));
-        crossroadRepository.save(crossroad);
+        crossroadService.save(crossroad);
     }
 
-    @GetMapping(value = "/crossroads")
-    public List<Crossroad> getCrossroads() {
-        return crossroadRepository.findAll();
-    }
 
 }
