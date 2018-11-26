@@ -11,7 +11,7 @@ function generate(LngLat, Zoom) {
     setTimeout(function() {
         $.getJSON('crossroads', function(data) {
             markers = data;
-            $.getJSON('roads', function(data) {
+            $.getJSON('road/roads', function(data) {
                 polylines = data;
                 initiateMaps(LngLat, Zoom);
             });
@@ -132,7 +132,7 @@ function sendNewMarkerInfo(marker) {
         "longitude": marker.position.lat()
     };
     $.ajax({
-        url: 'setCrossroad',
+        url: 'crossroads',
         type: 'PUT',
         contentType:'application/json',
         data: JSON.stringify(data),
@@ -151,7 +151,7 @@ function updateRoute() {
         "height": maxHeight.value,
     };
     $.ajax({
-        url: 'setroad',
+        url: 'road/setroad',
         type: 'PUT',
         contentType:'application/json',
         data: JSON.stringify(data),
@@ -166,7 +166,7 @@ function deleteRoad() {
         "id": routeId.value
     };
     $.ajax({
-        url: 'deleteRoute',
+        url: 'road/deleteRoad',
         type: 'PUT',
         contentType:'application/json',
         data: JSON.stringify(data),
@@ -284,8 +284,8 @@ function addMarker() {
     };
 
     $.ajax({
-        url: 'addCrossroad',
-        type: 'PUT',
+        url: 'crossroads',
+        type: 'POST',
         contentType:'application/json',
         data: JSON.stringify(data),
         dataType:'json'
@@ -333,7 +333,7 @@ function pushAddRoad() {
         }
     };
     $.ajax({
-        url: 'addRoad',
+        url: 'road/addRoad',
         type: 'PUT',
         contentType:'application/json',
         data: JSON.stringify(data),

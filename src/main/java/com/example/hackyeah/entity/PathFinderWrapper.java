@@ -9,8 +9,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class RouteSolverWrapper {
+public class PathFinderWrapper {
     private Crossroad start;
     private Crossroad end;
-    private Vehicle vehicle;
 }
