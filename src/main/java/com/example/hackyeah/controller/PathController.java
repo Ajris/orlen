@@ -2,7 +2,7 @@ package com.example.hackyeah.controller;
 
 import com.example.hackyeah.entity.Crossroad;
 import com.example.hackyeah.entity.PathFinderWrapper;
-import com.example.hackyeah.repository.CrossroadRepository;
+import com.example.hackyeah.service.PathService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -14,13 +14,10 @@ import java.util.List;
 public class PathController {
 
     @Autowired
-    private CrossroadRepository crossroadRepository;
+    private PathService pathService;
 
-    @PutMapping(value = "/findRoute")
-    public List<Crossroad> createRoute(@RequestBody PathFinderWrapper routeSolverWrapper) {
-        Crossroad start = crossroadRepository.findById(routeSolverWrapper.getStart().getId()).get();
-        Crossroad end = crossroadRepository.findById(routeSolverWrapper.getEnd().getId()).get();
-
-        return crossroadRepository.findAll();
+    @PutMapping(value = "/findPath")
+    public List<Crossroad> createPath(@RequestBody PathFinderWrapper pathFinderWrapper) {
+        return pathService.getAll(pathFinderWrapper);
     }
 }

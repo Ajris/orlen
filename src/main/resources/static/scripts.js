@@ -242,7 +242,7 @@ function findMyWay() {
         }
     };
     $.ajax({
-        url: 'findRoute',
+        url: 'findPath',
         type: 'PUT',
         contentType:'application/json',
         data: JSON.stringify(data),
