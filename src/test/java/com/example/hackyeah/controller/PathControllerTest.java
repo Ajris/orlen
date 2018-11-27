@@ -32,7 +32,7 @@ public class PathControllerTest {
     private PathService pathService;
 
     @Test
-    public void shouldSetRoad() throws Exception {
+    public void shouldSetPath() throws Exception {
         PathFinderWrapper pathFinderWrapper = PathFinderWrapper.builder()
                 .build();
 
