@@ -1,12 +1,13 @@
 package com.example.hackyeah.controller;
 
-import com.example.hackyeah.entity.Crossroad;
 import com.example.hackyeah.entity.Road;
 import com.example.hackyeah.entity.RoadAdderWrapper;
-import com.example.hackyeah.repository.CrossroadRepository;
-import com.example.hackyeah.repository.RoadRepository;
+import com.example.hackyeah.service.RoadService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,39 +18,26 @@ import java.util.List;
 public class RoadController {
 
     @Autowired
-    private CrossroadRepository crossroadRepository;
+    private RoadService roadService;
 
-    @Autowired
-    private RoadRepository roadRepository;
-
-    @PutMapping(value = "/road/addRoad")
+    @PostMapping(value = "/roads")
     public void addRoad(@RequestBody RoadAdderWrapper routeCombineWrapper) {
-        Crossroad toSave1 = crossroadRepository.findById(routeCombineWrapper.getC1().getId()).get();
-        Crossroad toSave2 = crossroadRepository.findById(routeCombineWrapper.getC2().getId()).get();
-
-        Road road = roadRepository.save(routeCombineWrapper.getR1());
-
-        toSave1.getConnectedRoads().add(road);
-        toSave2.getConnectedRoads().add(road);
-        crossroadRepository.save(toSave1);
-        crossroadRepository.save(toSave2);
+        roadService.save(routeCombineWrapper.getR1());
+        roadService.updateCrossroads(routeCombineWrapper);
     }
 
-    @PutMapping(value = "/road/setroad")
+    @PutMapping(value = "/roads")
     public void setRoad(@RequestBody Road road) {
-        Road toSaveRoad = roadRepository.findById(road.getId()).get();
-        toSaveRoad.setWidth(road.getWidth());
-        toSaveRoad.setHeight(road.getHeight());
-        roadRepository.save(toSaveRoad);
+        roadService.save(road);
     }
 
-    @PutMapping(value = "/road/deleteRoad")
-    public void deleteRoute(@RequestBody Road road) {
-        roadRepository.delete(road);
+    @DeleteMapping(value = "/roads/{id}")
+    public void deleteRoute(@PathVariable String id) {
+        roadService.deleteById(id);
     }
 
-    @GetMapping(value = "/road/roads")
+    @GetMapping(value = "/roads")
     public List<Road> getRoads() {
-        return roadRepository.findAll();
+        return roadService.findAll();
     }
 }

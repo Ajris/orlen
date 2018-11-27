@@ -1,7 +1,6 @@
 package com.example.hackyeah.controller;
 
 import com.example.hackyeah.entity.Crossroad;
-import com.example.hackyeah.repository.RoadRepository;
 import com.example.hackyeah.service.CrossroadService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
