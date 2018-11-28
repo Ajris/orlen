@@ -188,7 +188,7 @@ function deleteCrossroad() {
         contentType:'application/json',
         dataType:'json'
     });
-    generate();
+    generate({lat: map.getCenter().lat(), lng: map.getCenter().lng()}, map.getZoom());
 }
 
 var listener = [];

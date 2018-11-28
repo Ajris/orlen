@@ -1,6 +1,5 @@
 package com.example.hackyeah.service;
 
-import com.example.hackyeah.entity.Crossroad;
 import com.example.hackyeah.entity.Road;
 import com.example.hackyeah.entity.RoadAdderWrapper;
 import com.example.hackyeah.repository.CrossroadRepository;
@@ -41,7 +40,7 @@ public class RoadServiceImpl implements RoadService {
     }
 
     @Override
-    public void updateCrossroads(RoadAdderWrapper roadAdderWrapper){
+    public void updateCrossroads(RoadAdderWrapper roadAdderWrapper) {
         roadAdderWrapper.getC1().getConnectedRoads().add(roadAdderWrapper.getR1());
         roadAdderWrapper.getC2().getConnectedRoads().add(roadAdderWrapper.getR1());
         crossroadRepository.save(roadAdderWrapper.getC1());
