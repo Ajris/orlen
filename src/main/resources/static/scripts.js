@@ -132,7 +132,7 @@ function sendNewMarkerInfo(marker) {
         "longitude": marker.position.lat()
     };
     $.ajax({
-        url: 'setCrossroad',
+        url: 'crossroads',
         type: 'PUT',
         contentType:'application/json',
         data: JSON.stringify(data),
@@ -151,7 +151,7 @@ function updateRoute() {
         "height": maxHeight.value,
     };
     $.ajax({
-        url: 'setroad',
+        url: 'roads',
         type: 'PUT',
         contentType:'application/json',
         data: JSON.stringify(data),
@@ -162,14 +162,10 @@ function updateRoute() {
 
 function deleteRoad() {
     var routeId = document.querySelector('.routeId');
-    var data ={
-        "id": routeId.value
-    };
     $.ajax({
-        url: 'deleteRoute',
-        type: 'PUT',
+        url: 'roads/'+routeId.value,
+        type: 'DELETE',
         contentType:'application/json',
-        data: JSON.stringify(data),
         dataType:'json'
     });
     generate({lat: map.getCenter().lat(), lng: map.getCenter().lng()}, map.getZoom());
@@ -182,6 +178,17 @@ function addMarkerList() {
     newNode.innerHTML = marker.title;
     list.appendChild(newNode);
 });
+}
+
+function deleteCrossroad() {
+    var crossroadId = document.querySelector('.markerId');
+    $.ajax({
+        url: 'crossroads/'+crossroadId.value,
+        type: 'DELETE',
+        contentType:'application/json',
+        dataType:'json'
+    });
+    generate({lat: map.getCenter().lat(), lng: map.getCenter().lng()}, map.getZoom());
 }
 
 var listener = [];
@@ -235,7 +242,7 @@ function findMyWay() {
         }
     };
     $.ajax({
-        url: 'findRoute',
+        url: 'findPath',
         type: 'PUT',
         contentType:'application/json',
         data: JSON.stringify(data),
@@ -284,8 +291,8 @@ function addMarker() {
     };
 
     $.ajax({
-        url: 'addCrossroad',
-        type: 'PUT',
+        url: 'crossroads',
+        type: 'POST',
         contentType:'application/json',
         data: JSON.stringify(data),
         dataType:'json'
@@ -333,8 +340,8 @@ function pushAddRoad() {
         }
     };
     $.ajax({
-        url: 'addRoad',
-        type: 'PUT',
+        url: 'roads',
+        type: 'POST',
         contentType:'application/json',
         data: JSON.stringify(data),
         dataType:'json'

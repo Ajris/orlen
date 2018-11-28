@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class RouteCombineWrapper {
+public class RoadAdderWrapper {
     private Crossroad c1;
     private Crossroad c2;
     private Road r1;
