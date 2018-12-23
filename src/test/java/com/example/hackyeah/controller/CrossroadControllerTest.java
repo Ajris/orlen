@@ -3,7 +3,7 @@ package com.example.hackyeah.controller;
 import com.example.hackyeah.entity.Crossroad;
 import com.example.hackyeah.service.CrossroadService;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -22,7 +22,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(CrossroadController.class)
-public class CrossroadControllerTest {
+class CrossroadControllerTest {
 
     @Autowired
     private MockMvc mvc;
@@ -31,7 +31,7 @@ public class CrossroadControllerTest {
     private CrossroadService crossroadServiceMock;
 
     @Test
-    public void shouldCreateNewCrossroad() throws Exception {
+    void shouldCreateNewCrossroad() throws Exception {
         Crossroad c1 = Crossroad.builder()
                 .id("1")
                 .latitude(1.1)
@@ -57,7 +57,7 @@ public class CrossroadControllerTest {
 
 
     @Test
-    public void shouldUpdateCrossroad() throws Exception {
+    void shouldUpdateCrossroad() throws Exception {
         Crossroad c1 = Crossroad.builder()
                 .id("1")
                 .latitude(1.1)
@@ -82,7 +82,7 @@ public class CrossroadControllerTest {
     }
 
     @Test
-    public void shouldDeleteCrossroad() throws Exception {
+    void shouldDeleteCrossroad() throws Exception {
         String id = "1";
 
         doNothing()
@@ -99,7 +99,7 @@ public class CrossroadControllerTest {
     }
 
     @Test
-    public void shouldReturnListOfCrossroads() throws Exception {
+    void shouldReturnListOfCrossroads() throws Exception {
         Crossroad c1 = Crossroad.builder()
                 .id("1")
                 .latitude(1.1)

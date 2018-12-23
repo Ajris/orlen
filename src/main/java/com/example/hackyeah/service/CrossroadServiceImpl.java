@@ -15,7 +15,6 @@ public class CrossroadServiceImpl implements CrossroadService {
 
     @Override
     public void deleteById(String id) {
-        System.out.println(id);
         crossroadRepository.deleteById(id);
     }
 

@@ -5,7 +5,7 @@ import com.example.hackyeah.entity.Road;
 import com.example.hackyeah.entity.RoadAdderWrapper;
 import com.example.hackyeah.service.RoadService;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -24,7 +24,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(RoadController.class)
-public class RoadControllerTest {
+class RoadControllerTest {
 
     @Autowired
     private MockMvc mvc;
@@ -33,7 +33,7 @@ public class RoadControllerTest {
     private RoadService roadServiceMock;
 
     @Test
-    public void shouldAddRoad() throws Exception {
+    void shouldAddRoad() throws Exception {
         Road road = Road.builder()
                 .id("1")
                 .build();
@@ -62,7 +62,7 @@ public class RoadControllerTest {
 
 
     @Test
-    public void shouldSetRoad() throws Exception {
+    void shouldSetRoad() throws Exception {
         Road road = Road.builder()
                 .id("1")
                 .build();
@@ -85,7 +85,7 @@ public class RoadControllerTest {
     }
 
     @Test
-    public void shouldDeleteRoad() throws Exception {
+    void shouldDeleteRoad() throws Exception {
         String id = "1";
 
         doNothing()
@@ -102,7 +102,7 @@ public class RoadControllerTest {
     }
 
     @Test
-    public void shouldReturnListOfRoads() throws Exception {
+    void shouldReturnListOfRoads() throws Exception {
         Road c1 = Road.builder()
                 .id("1")
                 .build();

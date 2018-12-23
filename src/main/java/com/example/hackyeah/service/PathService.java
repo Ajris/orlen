@@ -6,5 +6,5 @@ import com.example.hackyeah.entity.PathFinderWrapper;
 import java.util.List;
 
 public interface PathService {
-    List<Crossroad> getAll(PathFinderWrapper pathFinderWrapper);
+    List<Crossroad> findPath(PathFinderWrapper pathFinderWrapper);
 }

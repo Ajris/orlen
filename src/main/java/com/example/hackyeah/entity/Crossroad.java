@@ -7,8 +7,8 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Document(collection = "crossroad")
 @Data
@@ -22,5 +22,18 @@ public class Crossroad {
     private Double latitude;
     private Double longitude;
 
-    private List<Road> connectedRoads = new ArrayList<>();
+    private List<Road> connectedRoads;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Crossroad crossroad = (Crossroad) o;
+        return Objects.equals(id, crossroad.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
 }

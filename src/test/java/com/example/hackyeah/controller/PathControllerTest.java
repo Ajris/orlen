@@ -4,7 +4,7 @@ import com.example.hackyeah.entity.Crossroad;
 import com.example.hackyeah.entity.PathFinderWrapper;
 import com.example.hackyeah.service.PathService;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -23,7 +23,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(PathController.class)
-public class PathControllerTest {
+class PathControllerTest {
 
     @Autowired
     private MockMvc mvc;
@@ -32,13 +32,13 @@ public class PathControllerTest {
     private PathService pathService;
 
     @Test
-    public void shouldSetPath() throws Exception {
+    void shouldSetPath() throws Exception {
         PathFinderWrapper pathFinderWrapper = PathFinderWrapper.builder()
                 .build();
 
         List<Crossroad> crossroads = new ArrayList<>();
 
-        when(pathService.getAll(pathFinderWrapper))
+        when(pathService.findPath(pathFinderWrapper))
                 .thenReturn(crossroads);
 
         ObjectMapper objectMapper = new ObjectMapper();
@@ -51,7 +51,7 @@ public class PathControllerTest {
                 .andExpect(status().isOk());
 
         verify(pathService, times(1))
-                .getAll(pathFinderWrapper);
+                .findPath(pathFinderWrapper);
         verifyNoMoreInteractions(pathService);
     }
 }

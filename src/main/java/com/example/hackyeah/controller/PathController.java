@@ -18,6 +18,6 @@ public class PathController {
 
     @PutMapping(value = "/findPath")
     public List<Crossroad> createPath(@RequestBody PathFinderWrapper pathFinderWrapper) {
-        return pathService.getAll(pathFinderWrapper);
+        return pathService.findPath(pathFinderWrapper);
     }
 }
