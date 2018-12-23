@@ -4,11 +4,10 @@ import com.example.hackyeah.entity.Crossroad;
 import com.example.hackyeah.repository.CrossroadRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 
 import java.util.List;
 import java.util.Optional;
@@ -16,9 +15,9 @@ import java.util.Optional;
 import static org.mockito.Mockito.*;
 import static org.mockito.internal.verification.VerificationModeFactory.times;
 
-@RunWith(SpringRunner.class)
+@SpringJUnitConfig
 @WebMvcTest(CrossroadService.class)
-class CrossroadServiceImplTest {
+public class CrossroadServiceImplTest {
 
     @Autowired
     private CrossroadService crossroadService;
@@ -27,7 +26,7 @@ class CrossroadServiceImplTest {
     private CrossroadRepository crossroadRepository;
 
     @Test
-    void shouldDeleteWorks () {
+    void shouldDeleteWorks() {
         String id = "123";
         doNothing()
                 .when(crossroadRepository)

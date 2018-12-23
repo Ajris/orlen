@@ -5,9 +5,9 @@ import org.junit.jupiter.api.Test;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 
-class SwaggerConfigTest {
+public class SwaggerConfigTest {
     @Test
-    void shouldReturnNewSwaggerConfigDocket() {
+    public void shouldReturnNewSwaggerConfigDocket() {
         SwaggerConfig swaggerConfig = new SwaggerConfig();
 
         Docket docket = swaggerConfig.api();

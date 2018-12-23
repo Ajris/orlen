@@ -2,20 +2,19 @@ package com.example.hackyeah.service;
 
 import com.example.hackyeah.entity.PathFinderWrapper;
 import com.example.hackyeah.repository.CrossroadRepository;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 import static org.mockito.internal.verification.VerificationModeFactory.times;
 
-@RunWith(SpringRunner.class)
+@SpringJUnitConfig
 @WebMvcTest(PathServiceImpl.class)
-class PathServiceImplTest {
+public class PathServiceImplTest {
 
     @Autowired
     private PathService pathService;
@@ -23,6 +22,7 @@ class PathServiceImplTest {
     @MockBean
     private CrossroadRepository crossroadRepository;
 
+    @Disabled
     @Test
     void shouldFindPath() {
         PathFinderWrapper pathFinderWrapper = PathFinderWrapper.builder().build();

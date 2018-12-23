@@ -4,12 +4,11 @@ import com.example.hackyeah.entity.Crossroad;
 import com.example.hackyeah.service.CrossroadService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
@@ -20,9 +19,9 @@ import static org.mockito.internal.verification.VerificationModeFactory.times;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@RunWith(SpringRunner.class)
+@SpringJUnitConfig
 @WebMvcTest(CrossroadController.class)
-class CrossroadControllerTest {
+public class CrossroadControllerTest {
 
     @Autowired
     private MockMvc mvc;
@@ -31,7 +30,7 @@ class CrossroadControllerTest {
     private CrossroadService crossroadServiceMock;
 
     @Test
-    void shouldCreateNewCrossroad() throws Exception {
+    public void shouldCreateNewCrossroad() throws Exception {
         Crossroad c1 = Crossroad.builder()
                 .id("1")
                 .latitude(1.1)
@@ -57,7 +56,7 @@ class CrossroadControllerTest {
 
 
     @Test
-    void shouldUpdateCrossroad() throws Exception {
+    public void shouldUpdateCrossroad() throws Exception {
         Crossroad c1 = Crossroad.builder()
                 .id("1")
                 .latitude(1.1)
@@ -82,7 +81,7 @@ class CrossroadControllerTest {
     }
 
     @Test
-    void shouldDeleteCrossroad() throws Exception {
+    public void shouldDeleteCrossroad() throws Exception {
         String id = "1";
 
         doNothing()
@@ -99,7 +98,7 @@ class CrossroadControllerTest {
     }
 
     @Test
-    void shouldReturnListOfCrossroads() throws Exception {
+    public void shouldReturnListOfCrossroads() throws Exception {
         Crossroad c1 = Crossroad.builder()
                 .id("1")
                 .latitude(1.1)
