@@ -9,9 +9,9 @@ and truck.
 
 To run project:
 
-1. `git clone https://github.com/Ajris/orlen.git`
-2. `mvn clean install`
-3. `mvn spring-boot:run `
+*  `git clone https://github.com/Ajris/orlen.git`
+* `mvn clean install`
+* `mvn spring-boot:run `
 
 ### Prerequisites
 
