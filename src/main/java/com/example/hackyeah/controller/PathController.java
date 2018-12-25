@@ -13,8 +13,12 @@ import java.util.List;
 @RestController
 public class PathController {
 
+    private final PathService pathService;
+
     @Autowired
-    private PathService pathService;
+    public PathController(PathService pathService) {
+        this.pathService = pathService;
+    }
 
     @PutMapping(value = "/findPath")
     public List<Crossroad> createPath(@RequestBody PathFinderWrapper pathFinderWrapper) {

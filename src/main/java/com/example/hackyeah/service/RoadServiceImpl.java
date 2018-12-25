@@ -15,11 +15,15 @@ import java.util.Optional;
 @Service
 public class RoadServiceImpl implements RoadService {
 
-    @Autowired
-    private RoadRepository roadRepository;
+    private final RoadRepository roadRepository;
+
+    private final CrossroadRepository crossroadRepository;
 
     @Autowired
-    private CrossroadRepository crossroadRepository;
+    public RoadServiceImpl(RoadRepository roadRepository, CrossroadRepository crossroadRepository) {
+        this.roadRepository = roadRepository;
+        this.crossroadRepository = crossroadRepository;
+    }
 
     @Override
     public List<Road> findAll() {

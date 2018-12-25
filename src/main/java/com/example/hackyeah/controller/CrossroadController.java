@@ -16,8 +16,12 @@ import java.util.List;
 @RestController
 public class CrossroadController {
 
+    private final CrossroadService crossroadService;
+
     @Autowired
-    private CrossroadService crossroadService;
+    public CrossroadController(CrossroadService crossroadService) {
+        this.crossroadService = crossroadService;
+    }
 
     @GetMapping(value = "/crossroads")
     public List<Crossroad> getCrossroads() {

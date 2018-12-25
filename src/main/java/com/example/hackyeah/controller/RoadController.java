@@ -17,8 +17,12 @@ import java.util.List;
 @RestController
 public class RoadController {
 
+    private final RoadService roadService;
+
     @Autowired
-    private RoadService roadService;
+    public RoadController(RoadService roadService) {
+        this.roadService = roadService;
+    }
 
     @PostMapping(value = "/roads")
     public void addRoad(@RequestBody RoadAdderWrapper routeCombineWrapper) {

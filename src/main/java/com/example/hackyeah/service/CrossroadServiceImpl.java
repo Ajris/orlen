@@ -10,8 +10,12 @@ import java.util.List;
 @Service
 public class CrossroadServiceImpl implements CrossroadService {
 
+    private final CrossroadRepository crossroadRepository;
+
     @Autowired
-    private CrossroadRepository crossroadRepository;
+    public CrossroadServiceImpl(CrossroadRepository crossroadRepository) {
+        this.crossroadRepository = crossroadRepository;
+    }
 
     @Override
     public void deleteById(String id) {
@@ -33,6 +37,4 @@ public class CrossroadServiceImpl implements CrossroadService {
         return crossroadRepository.findById(id)
                 .orElseThrow(NullPointerException::new);
     }
-
-
 }

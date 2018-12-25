@@ -2,7 +2,6 @@ package com.example.hackyeah.service;
 
 import com.example.hackyeah.entity.Crossroad;
 import com.example.hackyeah.entity.PathFinderWrapper;
-import com.example.hackyeah.entity.Road;
 import com.example.hackyeah.repository.CrossroadRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,8 +18,12 @@ import java.util.stream.Collectors;
 @Service
 public class PathServiceImpl implements PathService {
 
+    private final CrossroadRepository crossroadRepository;
+
     @Autowired
-    private CrossroadRepository crossroadRepository;
+    public PathServiceImpl(CrossroadRepository crossroadRepository) {
+        this.crossroadRepository = crossroadRepository;
+    }
 
     @Override
     public List<Crossroad> findPath(PathFinderWrapper pathFinderWrapper) {
@@ -36,11 +39,11 @@ public class PathServiceImpl implements PathService {
         visited.add(start);
         stack.add(start);
 
-        while(!stack.empty()){
+        while (!stack.empty()) {
             Crossroad current = stack.pop();
 
-            if(current.equals(end)){
-                while(!current.getId().equals("-1")){
+            if (current.equals(end)) {
+                while (!current.getId().equals("-1")) {
                     solution.add(current);
                     current = successorPredecessor.get(current);
                 }
@@ -55,8 +58,8 @@ public class PathServiceImpl implements PathService {
                     .flatMap(List::stream)
                     .collect(Collectors.toList());
 
-            for(Crossroad crossroad : crossroads){
-                if(!visited.contains(crossroad)){
+            for (Crossroad crossroad : crossroads) {
+                if (!visited.contains(crossroad)) {
                     successorPredecessor.put(crossroad, current);
                     stack.push(crossroad);
                     visited.add(crossroad);
