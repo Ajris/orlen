@@ -9,6 +9,8 @@ public interface CrossroadService {
 
     Crossroad save(Crossroad crossroad);
 
+    Crossroad changePlace(Crossroad crossroad);
+
     Crossroad findById(String id);
 
     void deleteById(String id);

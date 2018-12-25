@@ -8,7 +8,7 @@ import java.util.List;
 public interface RoadService {
     List<Road> findAll();
 
-    Road save(Road crossroad);
+    Road save(Road road);
 
     Road findById(String id);
 

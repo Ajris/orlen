@@ -40,6 +40,6 @@ public class CrossroadController {
 
     @PutMapping(value = "/crossroads")
     public void setCrossroad(@RequestBody Crossroad crossroad) {
-        crossroadService.save(crossroad);
+        crossroadService.changePlace(crossroad);
     }
 }

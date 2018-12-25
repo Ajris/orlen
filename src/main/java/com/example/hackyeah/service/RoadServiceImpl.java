@@ -31,8 +31,8 @@ public class RoadServiceImpl implements RoadService {
     }
 
     @Override
-    public Road save(Road crossroad) {
-        return roadRepository.save(crossroad);
+    public Road save(Road road) {
+        return roadRepository.save(road);
     }
 
     @Override
