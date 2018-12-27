@@ -1,4 +1,4 @@
-package com.example.hackyeah.service;
+package com.example.hackyeah.service.road;
 
 import com.example.hackyeah.entity.Crossroad;
 import com.example.hackyeah.entity.Road;

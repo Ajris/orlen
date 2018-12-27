@@ -2,13 +2,14 @@ package com.example.hackyeah.controller;
 
 import com.example.hackyeah.entity.Crossroad;
 import com.example.hackyeah.entity.PathFinderWrapper;
-import com.example.hackyeah.service.PathService;
+import com.example.hackyeah.service.path.PathService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
@@ -30,6 +31,8 @@ public class PathControllerTest {
     @MockBean
     private PathService pathService;
 
+
+    @WithMockUser("admin")
     @Test
     void shouldSetPath() throws Exception {
         PathFinderWrapper pathFinderWrapper = PathFinderWrapper.builder()

@@ -1,7 +1,7 @@
 package com.example.hackyeah.controller;
 
 import com.example.hackyeah.entity.Crossroad;
-import com.example.hackyeah.service.CrossroadService;
+import com.example.hackyeah.service.crossroad.CrossroadService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
@@ -30,6 +31,7 @@ public class CrossroadControllerTest {
     @MockBean
     private CrossroadService crossroadServiceMock;
 
+    @WithMockUser(value = "admin", roles = "ADMIN")
     @Test
     public void shouldCreateNewCrossroad() throws Exception {
         Crossroad c1 = Crossroad.builder()
@@ -83,6 +85,7 @@ public class CrossroadControllerTest {
     }
 
     @Test
+    @WithMockUser(value = "admin", roles = "ADMIN")
     public void shouldDeleteCrossroad() throws Exception {
         String id = "1";
 
@@ -100,6 +103,7 @@ public class CrossroadControllerTest {
     }
 
     @Test
+    @WithMockUser("admin")
     public void shouldReturnListOfCrossroads() throws Exception {
         Crossroad c1 = Crossroad.builder()
                 .id("1")

@@ -3,13 +3,14 @@ package com.example.hackyeah.controller;
 import com.example.hackyeah.entity.Crossroad;
 import com.example.hackyeah.entity.Road;
 import com.example.hackyeah.entity.RoadAdderWrapper;
-import com.example.hackyeah.service.RoadService;
+import com.example.hackyeah.service.road.RoadService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
@@ -31,6 +32,8 @@ public class RoadControllerTest {
     @MockBean
     private RoadService roadServiceMock;
 
+
+    @WithMockUser(value = "admin", roles = "ADMIN")
     @Test
     void shouldAddRoad() throws Exception {
         Road road = Road.builder()
@@ -59,7 +62,7 @@ public class RoadControllerTest {
         verifyNoMoreInteractions(roadServiceMock);
     }
 
-
+    @WithMockUser(value = "admin", roles = "ADMIN")
     @Test
     void shouldSetRoad() throws Exception {
         Road road = Road.builder()
@@ -83,6 +86,7 @@ public class RoadControllerTest {
         verifyNoMoreInteractions(roadServiceMock);
     }
 
+    @WithMockUser(value = "admin", roles = "ADMIN")
     @Test
     void shouldDeleteRoad() throws Exception {
         String id = "1";
@@ -100,6 +104,7 @@ public class RoadControllerTest {
         verifyNoMoreInteractions(roadServiceMock);
     }
 
+    @WithMockUser("admin")
     @Test
     void shouldReturnListOfRoads() throws Exception {
         Road c1 = Road.builder()

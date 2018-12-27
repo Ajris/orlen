@@ -22,7 +22,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests().antMatchers(HttpMethod.GET).hasAnyRole("ADMIN", "USER");
+        http.authorizeRequests().antMatchers(HttpMethod.GET).hasRole("USER");
         http.authorizeRequests().antMatchers(HttpMethod.PUT, "/findPath").hasRole("USER");
         http.authorizeRequests().antMatchers("/**").hasRole("ADMIN");
         http.csrf().disable().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED);

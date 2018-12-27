@@ -2,7 +2,7 @@ package com.example.hackyeah.controller;
 
 import com.example.hackyeah.entity.Road;
 import com.example.hackyeah.entity.RoadAdderWrapper;
-import com.example.hackyeah.service.RoadService;
+import com.example.hackyeah.service.road.RoadService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;

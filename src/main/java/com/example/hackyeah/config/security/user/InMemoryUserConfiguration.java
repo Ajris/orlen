@@ -24,7 +24,7 @@ public class InMemoryUserConfiguration {
         manager.createUser(User.withUsername("user").password(passwordEncoder.encode("password"))
                 .roles("USER").build());
         manager.createUser(User.withUsername("admin").password(passwordEncoder.encode("admin"))
-                .roles("USER", "ADMIN").build());
+                .roles("USER","ADMIN").build());
         return manager;
     }
 }

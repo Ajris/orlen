@@ -1,4 +1,4 @@
-package com.example.hackyeah.service;
+package com.example.hackyeah.service.path;
 
 import com.example.hackyeah.PathApplication;
 import com.example.hackyeah.entity.Crossroad;
@@ -6,11 +6,10 @@ import com.example.hackyeah.entity.PathFinderWrapper;
 import com.example.hackyeah.entity.Road;
 import com.example.hackyeah.repository.CrossroadRepository;
 import com.example.hackyeah.repository.RoadRepository;
+import com.example.hackyeah.service.path.PathService;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
@@ -19,9 +18,6 @@ import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 
 import java.util.List;
 import java.util.stream.Collectors;
-
-import static org.mockito.Mockito.*;
-import static org.mockito.internal.verification.VerificationModeFactory.times;
 
 @SpringJUnitConfig
 @ContextConfiguration(classes = PathApplication.class)
