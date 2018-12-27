@@ -3,6 +3,7 @@ package com.example.hackyeah.controller;
 import com.example.hackyeah.entity.Crossroad;
 import com.example.hackyeah.service.CrossroadService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Role;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -25,6 +26,7 @@ public class CrossroadController {
 
     @GetMapping(value = "/crossroads")
     public List<Crossroad> getCrossroads() {
+
         return crossroadService.findAll();
     }
 

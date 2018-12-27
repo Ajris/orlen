@@ -2,6 +2,7 @@ package com.example.hackyeah.service;
 
 import com.example.hackyeah.entity.Crossroad;
 import com.example.hackyeah.repository.CrossroadRepository;
+import com.example.hackyeah.repository.RoadRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,9 @@ public class CrossroadServiceImplTest {
 
     @MockBean
     private CrossroadRepository crossroadRepository;
+
+    @MockBean
+    private RoadRepository roadRepository;
 
     @Test
     void shouldDeleteWorks() {
