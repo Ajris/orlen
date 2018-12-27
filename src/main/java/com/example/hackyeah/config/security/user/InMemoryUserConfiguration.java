@@ -1,4 +1,4 @@
-package com.example.hackyeah.config.user;
+package com.example.hackyeah.config.security.user;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;

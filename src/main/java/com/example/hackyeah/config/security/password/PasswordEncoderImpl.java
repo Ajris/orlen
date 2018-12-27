@@ -1,4 +1,4 @@
-package com.example.hackyeah.config.password;
+package com.example.hackyeah.config.security.password;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
