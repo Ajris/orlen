@@ -3,6 +3,7 @@ package com.example.hackyeah.service.road;
 import com.example.hackyeah.entity.Crossroad;
 import com.example.hackyeah.entity.Road;
 import com.example.hackyeah.entity.RoadWrapper;
+import com.example.hackyeah.exception.RoadNotFoundException;
 import com.example.hackyeah.repository.CrossroadRepository;
 import com.example.hackyeah.repository.RoadRepository;
 import org.junit.jupiter.api.Assertions;
@@ -76,7 +77,7 @@ public class RoadServiceImplTest {
         when(roadRepository.findById(id))
                 .thenReturn(Optional.empty());
 
-        Assertions.assertThrows(NullPointerException.class, () -> roadService.findById(id));
+        Assertions.assertThrows(RoadNotFoundException.class, () -> roadService.findById(id));
 
         verify(roadRepository, times(1))
                 .findById(id);
@@ -116,44 +117,8 @@ public class RoadServiceImplTest {
     }
 
     @Test
-    void shouldUpdateCrossroadIfTheyDontHaveAnyRoad() {
-        Crossroad c1 = Crossroad.builder().id("1").latitude(1d).longitude(1d).build();
-        Crossroad c2 = Crossroad.builder().id("2").latitude(2d).longitude(2d).build();
-        Road r1 = Road.builder().id("1").start(c1).end(c2).build();
-        Crossroad expectedC1 = Crossroad.builder().id("1").latitude(1d).longitude(1d)
-                .connectedRoads(List.of(r1)).build();
-        Crossroad expectedC2 = Crossroad.builder().id("2").latitude(2d).longitude(2d)
-                .connectedRoads(List.of(r1)).build();
-
-        RoadWrapper roadAdderWrapper = RoadWrapper.builder()
-                .road(r1)
-                .startingCrossroad(c1)
-                .endingCrossroad(c2)
-                .build();
-
-        when(crossroadRepository.findById("1"))
-                .thenReturn(Optional.of(c1));
-        when(crossroadRepository.findById("2"))
-                .thenReturn(Optional.of(c2));
-
-        roadService.updateCrossroads(roadAdderWrapper);
-
-
-        verify(crossroadRepository, times(1))
-                .findById("1");
-        verify(crossroadRepository, times(1))
-                .findById("2");
-        verify(crossroadRepository, times(1))
-                .save(expectedC1);
-        verify(crossroadRepository, times(1))
-                .save(expectedC2);
-
-        verifyNoMoreInteractions(crossroadRepository);
-    }
-
-    @Test
     void shouldUpdateCrossroadsHavingRoad() {
-        Crossroad c1 = Crossroad.builder().id("1").latitude(1d).longitude(1d).build();
+        Crossroad c1 = Crossroad.builder().id("1").latitude(1d).longitude(1d).connectedRoads(new ArrayList<>()).build();
         Road r1 = Road.builder().id("1").build();
         List<Road> roads = new ArrayList<>();
         roads.add(r1);

@@ -3,6 +3,7 @@ package com.example.hackyeah.service.path;
 import com.example.hackyeah.entity.Crossroad;
 import com.example.hackyeah.entity.PathFinderWrapper;
 import com.example.hackyeah.repository.CrossroadRepository;
+import com.example.hackyeah.service.crossroad.CrossroadService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,55 +19,59 @@ import java.util.stream.Collectors;
 @Service
 public class PathServiceImpl implements PathService {
 
-    private final CrossroadRepository crossroadRepository;
+    private final CrossroadService crossroadService;
 
     @Autowired
-    public PathServiceImpl(CrossroadRepository crossroadRepository) {
-        this.crossroadRepository = crossroadRepository;
+    public PathServiceImpl(CrossroadService crossroadService) {
+        this.crossroadService = crossroadService;
     }
 
     @Override
     public List<Crossroad> findPath(PathFinderWrapper pathFinderWrapper) {
-        Crossroad start = crossroadRepository.findById(pathFinderWrapper.getStart().getId()).get();
-        Crossroad end = crossroadRepository.findById(pathFinderWrapper.getEnd().getId()).get();
+        Crossroad start = crossroadService.findById(pathFinderWrapper.getStart().getId());
+        Crossroad end = crossroadService.findById(pathFinderWrapper.getEnd().getId());
 
-        List<Crossroad> solution = new ArrayList<>();
         Set<Crossroad> visited = new HashSet<>();
-        Stack<Crossroad> stack = new Stack<>();
+        Stack<Crossroad> crossroadsToVisit = new Stack<>();
         Map<Crossroad, Crossroad> successorPredecessor = new HashMap<>();
         successorPredecessor.put(start, Crossroad.builder().id("-1").build());
 
         visited.add(start);
-        stack.add(start);
+        crossroadsToVisit.add(start);
 
-        while (!stack.empty()) {
-            Crossroad current = stack.pop();
+        while (!crossroadsToVisit.empty()) {
+            Crossroad current = crossroadsToVisit.pop();
 
             if (current.equals(end)) {
-                while (!current.getId().equals("-1")) {
-                    solution.add(current);
-                    current = successorPredecessor.get(current);
-                }
-                return solution;
+                return createSolution(successorPredecessor, current);
             }
 
-            List<Crossroad> crossroads = crossroadRepository.findById(current.getId())
-                    .get()
-                    .getConnectedRoads()
-                    .stream()
-                    .map(a -> List.of(a.getEnd(), a.getStart()))
-                    .flatMap(List::stream)
-                    .collect(Collectors.toList());
-
-            for (Crossroad crossroad : crossroads) {
+            for (Crossroad crossroad : getNeighbours(current)) {
                 if (!visited.contains(crossroad)) {
                     successorPredecessor.put(crossroad, current);
-                    stack.push(crossroad);
+                    crossroadsToVisit.push(crossroad);
                     visited.add(crossroad);
                 }
             }
         }
+        return new ArrayList<>();
+    }
 
+    private List<Crossroad> getNeighbours(Crossroad current) {
+        return crossroadService.findById(current.getId())
+                .getConnectedRoads()
+                .stream()
+                .map(a -> List.of(a.getEnd(), a.getStart()))
+                .flatMap(List::stream)
+                .collect(Collectors.toList());
+    }
+
+    private List<Crossroad> createSolution(Map<Crossroad, Crossroad> successorPredecessor, Crossroad current) {
+        List<Crossroad> solution = new ArrayList<>();
+        while (!current.getId().equals("-1")) {
+            solution.add(current);
+            current = successorPredecessor.get(current);
+        }
         return solution;
     }
 }
