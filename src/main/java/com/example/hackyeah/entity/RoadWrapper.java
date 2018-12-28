@@ -9,8 +9,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class RoadAdderWrapper {
-    private Crossroad c1;
-    private Crossroad c2;
-    private Road r1;
+public class RoadWrapper {
+    private Crossroad startingCrossroad;
+    private Crossroad endingCrossroad;
+    private Road road;
 }

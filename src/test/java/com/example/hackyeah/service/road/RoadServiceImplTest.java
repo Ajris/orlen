@@ -2,11 +2,9 @@ package com.example.hackyeah.service.road;
 
 import com.example.hackyeah.entity.Crossroad;
 import com.example.hackyeah.entity.Road;
-import com.example.hackyeah.entity.RoadAdderWrapper;
+import com.example.hackyeah.entity.RoadWrapper;
 import com.example.hackyeah.repository.CrossroadRepository;
 import com.example.hackyeah.repository.RoadRepository;
-import com.example.hackyeah.service.road.RoadService;
-import com.example.hackyeah.service.road.RoadServiceImpl;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -127,10 +125,10 @@ public class RoadServiceImplTest {
         Crossroad expectedC2 = Crossroad.builder().id("2").latitude(2d).longitude(2d)
                 .connectedRoads(List.of(r1)).build();
 
-        RoadAdderWrapper roadAdderWrapper = RoadAdderWrapper.builder()
-                .r1(r1)
-                .c1(c1)
-                .c2(c2)
+        RoadWrapper roadAdderWrapper = RoadWrapper.builder()
+                .road(r1)
+                .startingCrossroad(c1)
+                .endingCrossroad(c2)
                 .build();
 
         when(crossroadRepository.findById("1"))
@@ -167,10 +165,10 @@ public class RoadServiceImplTest {
         Crossroad expectedC2 = Crossroad.builder().id("2").latitude(2d).longitude(2d)
                 .connectedRoads(List.of(r1, r1)).build();
 
-        RoadAdderWrapper roadAdderWrapper = RoadAdderWrapper.builder()
-                .r1(r1)
-                .c1(c1)
-                .c2(c2)
+        RoadWrapper roadAdderWrapper = RoadWrapper.builder()
+                .road(r1)
+                .startingCrossroad(c1)
+                .endingCrossroad(c2)
                 .build();
 
         when(crossroadRepository.findById("1"))

@@ -2,7 +2,7 @@ package com.example.hackyeah.controller;
 
 import com.example.hackyeah.entity.Crossroad;
 import com.example.hackyeah.entity.Road;
-import com.example.hackyeah.entity.RoadAdderWrapper;
+import com.example.hackyeah.entity.RoadWrapper;
 import com.example.hackyeah.service.road.RoadService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
@@ -40,10 +40,10 @@ public class RoadControllerTest {
                 .id("1")
                 .build();
 
-        RoadAdderWrapper c1 = RoadAdderWrapper.builder()
-                .r1(road)
-                .c1(new Crossroad())
-                .c2(new Crossroad())
+        RoadWrapper c1 = RoadWrapper.builder()
+                .road(road)
+                .startingCrossroad(new Crossroad())
+                .endingCrossroad(new Crossroad())
                 .build();
 
         ObjectMapper objectMapper = new ObjectMapper();
@@ -56,7 +56,7 @@ public class RoadControllerTest {
                 .andExpect(status().isOk());
 
         verify(roadServiceMock, times(1))
-                .save(c1.getR1());
+                .save(c1.getRoad());
         verify(roadServiceMock, times(1))
                 .updateCrossroads(c1);
         verifyNoMoreInteractions(roadServiceMock);

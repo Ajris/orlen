@@ -2,16 +2,14 @@ package com.example.hackyeah.service.road;
 
 import com.example.hackyeah.entity.Crossroad;
 import com.example.hackyeah.entity.Road;
-import com.example.hackyeah.entity.RoadAdderWrapper;
+import com.example.hackyeah.entity.RoadWrapper;
 import com.example.hackyeah.exception.RoadNotFoundException;
 import com.example.hackyeah.repository.CrossroadRepository;
 import com.example.hackyeah.repository.RoadRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class RoadServiceImpl implements RoadService {
@@ -48,28 +46,17 @@ public class RoadServiceImpl implements RoadService {
     }
 
     @Override
-    public void updateCrossroads(RoadAdderWrapper roadAdderWrapper) {
-        Crossroad crossroad1 = crossroadRepository.findById(roadAdderWrapper.getC1().getId()).get();
-        Crossroad crossroad2 = crossroadRepository.findById(roadAdderWrapper.getC2().getId()).get();
+    public void updateCrossroads(RoadWrapper roadAdderWrapper) {
+        Crossroad startingCrossroad = crossroadRepository.findById(roadAdderWrapper.getStartingCrossroad().getId()).get();
+        Crossroad endingCrossroad = crossroadRepository.findById(roadAdderWrapper.getEndingCrossroad().getId()).get();
 
-        Optional.ofNullable(crossroad1.getConnectedRoads())
-                .ifPresentOrElse(roads -> roads.add(roadAdderWrapper.getR1()),
-                        () -> {
-                            List<Road> r = new ArrayList<>();
-                            r.add(roadAdderWrapper.getR1());
-                            crossroad1.setConnectedRoads(r);
-                        });
+        startingCrossroad.getConnectedRoads()
+                .add(roadAdderWrapper.getRoad());
 
+        endingCrossroad.getConnectedRoads()
+                .add(roadAdderWrapper.getRoad());
 
-        Optional.ofNullable(crossroad2.getConnectedRoads())
-                .ifPresentOrElse(roads -> roads.add(roadAdderWrapper.getR1()),
-                        () -> {
-                            List<Road> r = new ArrayList<>();
-                            r.add(roadAdderWrapper.getR1());
-                            crossroad2.setConnectedRoads(r);
-                        });
-
-        crossroadRepository.save(crossroad1);
-        crossroadRepository.save(crossroad2);
+        crossroadRepository.save(startingCrossroad);
+        crossroadRepository.save(endingCrossroad);
     }
 }

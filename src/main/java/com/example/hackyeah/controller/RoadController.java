@@ -1,7 +1,7 @@
 package com.example.hackyeah.controller;
 
 import com.example.hackyeah.entity.Road;
-import com.example.hackyeah.entity.RoadAdderWrapper;
+import com.example.hackyeah.entity.RoadWrapper;
 import com.example.hackyeah.service.road.RoadService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -25,9 +25,9 @@ public class RoadController {
     }
 
     @PostMapping(value = "/roads")
-    public void addRoad(@RequestBody RoadAdderWrapper routeCombineWrapper) {
-        roadService.save(routeCombineWrapper.getR1());
-        roadService.updateCrossroads(routeCombineWrapper);
+    public void addRoad(@RequestBody RoadWrapper roadWrapper) {
+        roadService.save(roadWrapper.getRoad());
+        roadService.updateCrossroads(roadWrapper);
     }
 
     @PutMapping(value = "/roads")
