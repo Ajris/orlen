@@ -1,0 +1,6 @@
+package com.example.hackyeah.exception;
+
+public class RoadNotFoundException extends RuntimeException {
+    public RoadNotFoundException() {
+    }
+}

@@ -2,6 +2,7 @@ package com.example.hackyeah.service.crossroad;
 
 import com.example.hackyeah.entity.Crossroad;
 import com.example.hackyeah.entity.Road;
+import com.example.hackyeah.exception.CrossroadNotFoundException;
 import com.example.hackyeah.repository.CrossroadRepository;
 import com.example.hackyeah.repository.RoadRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,8 +28,7 @@ public class CrossroadServiceImpl implements CrossroadService {
 
     @Override
     public Crossroad changePlace(Crossroad crossroad) {
-        Crossroad currentCrossroad = crossroadRepository.findById(crossroad.getId())
-                .orElseThrow(NullPointerException::new);
+        Crossroad currentCrossroad = findById(crossroad.getId());
 
         List<Road> connectedRoads = roadRepository.findAll()
                 .stream()
@@ -74,6 +74,6 @@ public class CrossroadServiceImpl implements CrossroadService {
     @Override
     public Crossroad findById(String id) {
         return crossroadRepository.findById(id)
-                .orElseThrow(NullPointerException::new);
+                .orElseThrow(CrossroadNotFoundException::new);
     }
 }

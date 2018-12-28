@@ -25,7 +25,6 @@ public class CrossroadController {
 
     @GetMapping(value = "/crossroads")
     public List<Crossroad> getCrossroads() {
-
         return crossroadService.findAll();
     }
 
