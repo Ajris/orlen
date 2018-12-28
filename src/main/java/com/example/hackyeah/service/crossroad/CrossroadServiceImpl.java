@@ -44,16 +44,11 @@ public class CrossroadServiceImpl implements CrossroadService {
             }
         });
 
-        Crossroad crossroadToSave = Crossroad.builder()
-                .id(crossroad.getId())
-                .latitude(crossroad.getLatitude())
-                .longitude(crossroad.getLongitude())
-                .connectedRoads(connectedRoads)
-                .build();
+        crossroad.setConnectedRoads(connectedRoads);
 
         roadRepository.saveAll(connectedRoads);
 
-        return crossroadRepository.save(crossroadToSave);
+        return crossroadRepository.save(crossroad);
     }
 
     @Override
