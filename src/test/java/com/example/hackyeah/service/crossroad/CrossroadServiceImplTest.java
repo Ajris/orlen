@@ -3,7 +3,6 @@ package com.example.hackyeah.service.crossroad;
 import com.example.hackyeah.entity.Crossroad;
 import com.example.hackyeah.repository.CrossroadRepository;
 import com.example.hackyeah.repository.RoadRepository;
-import com.example.hackyeah.service.crossroad.CrossroadService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -72,7 +71,7 @@ public class CrossroadServiceImplTest {
         when(crossroadRepository.save(crossroad1))
                 .thenReturn(crossroad1);
 
-        Crossroad returnedCrossroad = crossroadService.save(crossroad1);
+        Crossroad returnedCrossroad = crossroadService.addCrossroad(crossroad1);
 
         Assertions.assertEquals(returnedCrossroad, crossroad1);
 

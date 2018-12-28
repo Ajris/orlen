@@ -7,7 +7,7 @@ import java.util.List;
 public interface CrossroadService {
     List<Crossroad> findAll();
 
-    Crossroad save(Crossroad crossroad);
+    Crossroad addCrossroad(Crossroad crossroad);
 
     Crossroad changePlace(Crossroad crossroad);
 

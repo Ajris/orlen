@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
+import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
 @Service
@@ -30,25 +30,32 @@ public class CrossroadServiceImpl implements CrossroadService {
     public Crossroad changePlace(Crossroad crossroad) {
         Crossroad currentCrossroad = findById(crossroad.getId());
 
-        List<Road> connectedRoads = roadRepository.findAll()
-                .stream()
-                .filter(road -> Optional.ofNullable(currentCrossroad.getConnectedRoads())
-                        .orElse(new ArrayList<>()).contains(road))
-                .collect(Collectors.toList());
+        List<Road> connectedRoads = findConnectedRoads(currentCrossroad);
 
-        connectedRoads.forEach(road -> {
-            if (road.getEnd().equals(currentCrossroad)) {
-                road.setEnd(crossroad);
-            } else if (road.getStart().equals(currentCrossroad)) {
-                road.setStart(crossroad);
-            }
-        });
+        connectedRoads.forEach(updateRoadPosition(crossroad, currentCrossroad));
 
         crossroad.setConnectedRoads(connectedRoads);
 
         roadRepository.saveAll(connectedRoads);
 
         return crossroadRepository.save(crossroad);
+    }
+
+    private Consumer<Road> updateRoadPosition(Crossroad crossroad, Crossroad currentCrossroad) {
+        return road -> {
+            if (road.getEnd().equals(currentCrossroad)) {
+                road.setEnd(crossroad);
+            } else if (road.getStart().equals(currentCrossroad)) {
+                road.setStart(crossroad);
+            }
+        };
+    }
+
+    private List<Road> findConnectedRoads(Crossroad currentCrossroad) {
+        return roadRepository.findAll()
+                .stream()
+                .filter(road -> currentCrossroad.getConnectedRoads().contains(road))
+                .collect(Collectors.toList());
     }
 
     @Override
@@ -62,7 +69,8 @@ public class CrossroadServiceImpl implements CrossroadService {
     }
 
     @Override
-    public Crossroad save(Crossroad crossroad) {
+    public Crossroad addCrossroad(Crossroad crossroad) {
+        crossroad.setConnectedRoads(new ArrayList<>());
         return crossroadRepository.save(crossroad);
     }
 

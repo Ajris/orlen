@@ -40,7 +40,7 @@ public class CrossroadControllerTest {
                 .longitude(1.2)
                 .build();
 
-        when(crossroadServiceMock.save(c1))
+        when(crossroadServiceMock.addCrossroad(c1))
                 .thenReturn(c1);
 
         ObjectMapper objectMapper = new ObjectMapper();
@@ -53,7 +53,7 @@ public class CrossroadControllerTest {
                 .andExpect(status().isOk());
 
         verify(crossroadServiceMock, times(1))
-                .save(c1);
+                .addCrossroad(c1);
         verifyNoMoreInteractions(crossroadServiceMock);
     }
 
@@ -67,7 +67,7 @@ public class CrossroadControllerTest {
                 .longitude(1.2)
                 .build();
 
-        when(crossroadServiceMock.save(c1))
+        when(crossroadServiceMock.addCrossroad(c1))
                 .thenReturn(c1);
 
         ObjectMapper objectMapper = new ObjectMapper();
@@ -80,7 +80,7 @@ public class CrossroadControllerTest {
                 .andExpect(status().isOk());
 
         verify(crossroadServiceMock, times(1))
-                .save(c1);
+                .addCrossroad(c1);
         verifyNoMoreInteractions(crossroadServiceMock);
     }
 

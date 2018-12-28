@@ -30,7 +30,7 @@ public class CrossroadController {
 
     @PostMapping(value = "/crossroads")
     public void addCrossroad(@RequestBody Crossroad crossroad) {
-        crossroadService.save(crossroad);
+        crossroadService.addCrossroad(crossroad);
     }
 
     @DeleteMapping(value = "/crossroads/{id}")
