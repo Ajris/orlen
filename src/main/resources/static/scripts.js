@@ -333,7 +333,7 @@ function pushAddRoad() {
             "end": {
                 "id": markers[1].id,
                 "longitude": markers[1].position.lat(),
-                "latitude": markers[1].position.lng(),
+                "latitude": markers[1].position.lng()
             },
             "width": roadWidth.value,
             "height": roadHeight.value

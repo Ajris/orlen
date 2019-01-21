@@ -12,9 +12,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import java.util.Objects;
 
 @Document(collection = "road")
-@Getter
-@Setter
-@NoArgsConstructor
+@Data
 @AllArgsConstructor
 @Builder
 public class Road {
@@ -25,9 +23,22 @@ public class Road {
     private Crossroad end;
 
     private Double width;
-    private Double length;
     private Double height;
-    private Double maxLoad;
+
+    public Road() {
+    }
+
+    public Road(Crossroad start, Crossroad end, Double width, Double height) {
+        this.start = start;
+        this.end = end;
+        this.width = width;
+        this.height = height;
+    }
+
+    public Road(Crossroad start, Crossroad end) {
+        this.start = start;
+        this.end = end;
+    }
 
     @Override
     public boolean equals(Object o) {

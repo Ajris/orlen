@@ -43,7 +43,6 @@ public class CrossroadServiceImpl implements CrossroadService {
                 .build();
 
         roadRepository.saveAll(connectedRoads);
-
         return crossroadRepository.save(crossroadToSave);
     }
 
