@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
@@ -34,9 +35,16 @@ public class CrossroadServiceImpl implements CrossroadService {
 
         connectedRoads.forEach(updateRoadPosition(crossroad, currentCrossroad));
 
-        crossroad.setConnectedRoads(connectedRoads);
+        Crossroad crossroadToSave = Crossroad.builder()
+                .id(crossroad.getId())
+                .latitude(crossroad.getLatitude())
+                .longitude(crossroad.getLongitude())
+                .connectedRoads(connectedRoads)
+                .build();
 
-        return crossroadRepository.save(crossroad);
+        roadRepository.saveAll(connectedRoads);
+
+        return crossroadRepository.save(crossroadToSave);
     }
 
     private Consumer<Road> updateRoadPosition(Crossroad crossroad, Crossroad currentCrossroad) {
@@ -52,7 +60,8 @@ public class CrossroadServiceImpl implements CrossroadService {
     private List<Road> findConnectedRoads(Crossroad currentCrossroad) {
         return roadRepository.findAll()
                 .stream()
-                .filter(road -> currentCrossroad.getConnectedRoads().contains(road))
+                .filter(road -> Optional.ofNullable(currentCrossroad.getConnectedRoads())
+                        .orElse(new ArrayList<>()).contains(road))
                 .collect(Collectors.toList());
     }
 
