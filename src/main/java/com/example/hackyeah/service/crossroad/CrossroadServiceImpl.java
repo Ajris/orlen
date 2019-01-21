@@ -36,8 +36,6 @@ public class CrossroadServiceImpl implements CrossroadService {
 
         crossroad.setConnectedRoads(connectedRoads);
 
-        roadRepository.saveAll(connectedRoads);
-
         return crossroadRepository.save(crossroad);
     }
 

@@ -2,6 +2,7 @@ package com.example.hackyeah.service.path;
 
 import com.example.hackyeah.entity.Crossroad;
 import com.example.hackyeah.entity.PathFinderWrapper;
+import com.example.hackyeah.entity.Road;
 import com.example.hackyeah.repository.CrossroadRepository;
 import com.example.hackyeah.service.crossroad.CrossroadService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +31,7 @@ public class PathServiceImpl implements PathService {
     public List<Crossroad> findPath(PathFinderWrapper pathFinderWrapper) {
         Crossroad start = crossroadService.findById(pathFinderWrapper.getStart().getId());
         Crossroad end = crossroadService.findById(pathFinderWrapper.getEnd().getId());
+
 
         Set<Crossroad> visited = new HashSet<>();
         Stack<Crossroad> crossroadsToVisit = new Stack<>();
