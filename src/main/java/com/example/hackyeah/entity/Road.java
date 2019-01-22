@@ -25,21 +25,6 @@ public class Road {
     private Double width;
     private Double height;
 
-    public Road() {
-    }
-
-    public Road(Crossroad start, Crossroad end, Double width, Double height) {
-        this.start = start;
-        this.end = end;
-        this.width = width;
-        this.height = height;
-    }
-
-    public Road(Crossroad start, Crossroad end) {
-        this.start = start;
-        this.end = end;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

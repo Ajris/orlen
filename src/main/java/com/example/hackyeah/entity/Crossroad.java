@@ -13,6 +13,7 @@ import java.util.Objects;
 @Document(collection = "crossroad")
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 @Builder
 public class Crossroad {
     @Id
@@ -22,14 +23,6 @@ public class Crossroad {
     private Double longitude;
 
     private List<Road> connectedRoads;
-
-    public Crossroad(Double latitude, Double longitude) {
-        this.latitude = latitude;
-        this.longitude = longitude;
-    }
-
-    public Crossroad() {
-    }
 
     @Override
     public boolean equals(Object o) {

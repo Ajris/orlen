@@ -314,17 +314,17 @@ function pushAddRoad() {
     var roadWidth = document.querySelector('.roadWidth');
     var roadHeight = document.querySelector('.roadHeight');
     var data = {
-        "c1": {
+        "startingCrossroad": {
             "id": markers[0].id,
             "longitude": markers[0].position.lat(),
             "latitude": markers[0].position.lng()
         },
-        "c2": {
+        "endingCrossroad": {
             "id": markers[1].id,
             "longitude": markers[1].position.lat(),
             "latitude": markers[1].position.lng()
         },
-        "r1": {
+        "road": {
             "start": {
                 "id": markers[0].id,
                 "longitude": markers[0].position.lat(),

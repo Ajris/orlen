@@ -26,7 +26,6 @@ public class RoadController {
 
     @PostMapping(value = "/roads")
     public void addRoad(@RequestBody RoadWrapper roadWrapper) {
-        System.out.println(roadWrapper.getStartingCrossroad());
         roadService.save(roadWrapper.getRoad());
         roadService.updateCrossroads(roadWrapper);
     }

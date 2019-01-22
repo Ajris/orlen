@@ -25,7 +25,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests().antMatchers(HttpMethod.GET).hasRole("USER");
         http.authorizeRequests().antMatchers(HttpMethod.PUT, "/findPath").hasRole("USER");
         http.authorizeRequests().antMatchers("/**").hasRole("ADMIN");
-        http.csrf().disable().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED);
+        http.csrf().disable();
         http.userDetailsService(userDetailsService);
         http.formLogin().permitAll();
         http.logout().invalidateHttpSession(true).deleteCookies("JSESSIONID");
