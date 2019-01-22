@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -21,7 +22,7 @@ public class PathController {
     }
 
     @PutMapping(value = "/findPath")
-    public List<Crossroad> createPath(@RequestBody PathFinderWrapper pathFinderWrapper) {
+    public List<Crossroad> createPath(@Valid @RequestBody PathFinderWrapper pathFinderWrapper) {
         return pathService.findPath(pathFinderWrapper);
     }
 }

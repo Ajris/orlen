@@ -6,16 +6,17 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.lang.NonNull;
 
-import javax.validation.Valid;
+import javax.validation.constraints.Min;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class PathFinderWrapper {
-    private Crossroad start;
-    private Crossroad end;
-    @Valid
+public class Vehicle {
     @NonNull
-    private Vehicle vehicle;
+    @Min(1)
+    private double width;
+    @NonNull
+    @Min(1)
+    private double height;
 }

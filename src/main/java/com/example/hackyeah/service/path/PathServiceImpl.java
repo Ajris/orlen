@@ -2,6 +2,9 @@ package com.example.hackyeah.service.path;
 
 import com.example.hackyeah.entity.Crossroad;
 import com.example.hackyeah.entity.PathFinderWrapper;
+import com.example.hackyeah.entity.Road;
+import com.example.hackyeah.entity.Vehicle;
+import com.example.hackyeah.exception.RoadNotFoundException;
 import com.example.hackyeah.service.crossroad.CrossroadService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,7 +33,7 @@ public class PathServiceImpl implements PathService {
     public List<Crossroad> findPath(PathFinderWrapper pathFinderWrapper) {
         Crossroad start = crossroadService.findById(pathFinderWrapper.getStart().getId());
         Crossroad end = crossroadService.findById(pathFinderWrapper.getEnd().getId());
-
+        Vehicle vehicle = pathFinderWrapper.getVehicle();
 
         Set<Crossroad> visited = new HashSet<>();
         Stack<Crossroad> crossroadsToVisit = new Stack<>();
@@ -48,7 +51,7 @@ public class PathServiceImpl implements PathService {
             }
 
             for (Crossroad crossroad : getNeighbours(current)) {
-                if (!visited.contains(crossroad)) {
+                if (!visited.contains(crossroad) && vehicleCanGoThroughRoad(vehicle, getRoadBetweenCrossroads(crossroad, current))) {
                     successorPredecessor.put(crossroadService.findById(crossroad.getId()), current);
                     crossroadsToVisit.push(crossroadService.findById(crossroad.getId()));
                     visited.add(crossroad);
@@ -56,6 +59,20 @@ public class PathServiceImpl implements PathService {
             }
         }
         return new ArrayList<>();
+    }
+
+    private boolean vehicleCanGoThroughRoad(Vehicle vehicle, Road roadBetweenCrossroads) {
+        return vehicle.getHeight() <= roadBetweenCrossroads.getHeight()
+                && vehicle.getWidth() <= roadBetweenCrossroads.getWidth();
+    }
+
+    private Road getRoadBetweenCrossroads(Crossroad crossroad, Crossroad current) {
+        return crossroadService.findById(current.getId())
+                .getConnectedRoads()
+                .stream()
+                .filter(road -> road.getEnd().equals(crossroad) || road.getStart().equals(crossroad))
+                .findFirst()
+                .orElseThrow(RoadNotFoundException::new);
     }
 
     private List<Crossroad> getNeighbours(Crossroad current) {
