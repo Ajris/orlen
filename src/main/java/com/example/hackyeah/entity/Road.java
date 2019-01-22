@@ -14,6 +14,7 @@ import java.util.Objects;
 @Document(collection = "road")
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 @Builder
 public class Road {
     @Id
