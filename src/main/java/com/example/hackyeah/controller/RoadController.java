@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -25,7 +26,7 @@ public class RoadController {
     }
 
     @PostMapping(value = "/roads")
-    public void addRoad(@RequestBody RoadWrapper roadWrapper) {
+    public void addRoad(@Valid @RequestBody RoadWrapper roadWrapper) {
         roadService.save(roadWrapper.getRoad());
         roadService.updateCrossroads(roadWrapper);
     }
