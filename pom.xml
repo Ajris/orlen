@@ -24,6 +24,8 @@
         <spring.data.mongodb.version>2.1.4.RELEASE</spring.data.mongodb.version>
         <spring.boot.starter.version>2.1.2.RELEASE</spring.boot.starter.version>
         <spring.data.commons.version>2.1.4.RELEASE</spring.data.commons.version>
+        <spring.security.web.version>5.1.2.RELEASE</spring.security.web.version>
+        <spring.security.config.version>5.1.2.RELEASE</spring.security.config.version>
 
         <maven.compiler.plugin.version>3.8.0</maven.compiler.plugin.version>
         <maven.compiler.source>${java.version}</maven.compiler.source>
@@ -37,7 +39,6 @@
 
         <lombok.version>1.16.22</lombok.version>
         <swagger.version>2.9.2</swagger.version>
-
 
         <jacoco.plugin.version>0.8.2</jacoco.plugin.version>
         <mockito.version>2.23.4</mockito.version>
@@ -130,13 +131,13 @@
         <dependency>
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-web</artifactId>
-            <version>5.1.2.RELEASE</version>
+            <version>${spring.security.web.version}</version>
         </dependency>
 
         <dependency>
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-config</artifactId>
-            <version>5.1.2.RELEASE</version>
+            <version>${spring.security.config.version}</version>
         </dependency>
 
         <dependency>
