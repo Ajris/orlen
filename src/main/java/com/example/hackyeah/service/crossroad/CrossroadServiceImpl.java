@@ -28,7 +28,7 @@ public class CrossroadServiceImpl implements CrossroadService {
     }
 
     @Override
-    public Crossroad changePlace(Crossroad crossroad) {
+    public void changePlace(Crossroad crossroad) {
         Crossroad currentCrossroad = findById(crossroad.getId());
 
         List<Road> connectedRoads = findConnectedRoads(currentCrossroad);
@@ -43,7 +43,7 @@ public class CrossroadServiceImpl implements CrossroadService {
                 .build();
 
         roadRepository.saveAll(connectedRoads);
-        return crossroadRepository.save(crossroadToSave);
+        crossroadRepository.save(crossroadToSave);
     }
 
     private Consumer<Road> updateRoadPosition(Crossroad crossroad, Crossroad currentCrossroad) {

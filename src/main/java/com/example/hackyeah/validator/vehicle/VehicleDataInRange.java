@@ -1,4 +1,4 @@
-package com.example.hackyeah.validator;
+package com.example.hackyeah.validator.vehicle;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;

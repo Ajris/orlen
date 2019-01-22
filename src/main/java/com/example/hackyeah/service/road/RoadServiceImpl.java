@@ -3,6 +3,7 @@ package com.example.hackyeah.service.road;
 import com.example.hackyeah.entity.Crossroad;
 import com.example.hackyeah.entity.Road;
 import com.example.hackyeah.entity.RoadWrapper;
+import com.example.hackyeah.exception.CrossroadNotFoundException;
 import com.example.hackyeah.exception.RoadNotFoundException;
 import com.example.hackyeah.repository.CrossroadRepository;
 import com.example.hackyeah.repository.RoadRepository;
@@ -47,16 +48,17 @@ public class RoadServiceImpl implements RoadService {
 
     @Override
     public void updateCrossroads(RoadWrapper roadAdderWrapper) {
-        Crossroad startingCrossroad = crossroadRepository.findById(roadAdderWrapper.getStartingCrossroad().getId()).get();
-        Crossroad endingCrossroad = crossroadRepository.findById(roadAdderWrapper.getEndingCrossroad().getId()).get();
+        Road road = roadAdderWrapper.getRoad();
+        crossroadRepository.save(addRoadToCrossroadByID(road, roadAdderWrapper.getStartingCrossroad().getId()));
+        crossroadRepository.save(addRoadToCrossroadByID(road, roadAdderWrapper.getEndingCrossroad().getId()));
+    }
 
-        startingCrossroad.getConnectedRoads()
-                .add(roadAdderWrapper.getRoad());
+    private Crossroad addRoadToCrossroadByID(Road road, String crossroadId) {
+        Crossroad crossroad = crossroadRepository.findById(crossroadId)
+                .orElseThrow(CrossroadNotFoundException::new);
 
-        endingCrossroad.getConnectedRoads()
-                .add(roadAdderWrapper.getRoad());
-
-        crossroadRepository.save(startingCrossroad);
-        crossroadRepository.save(endingCrossroad);
+        crossroad.getConnectedRoads()
+                .add(road);
+        return crossroad;
     }
 }

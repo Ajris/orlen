@@ -9,7 +9,7 @@ public interface CrossroadService {
 
     Crossroad addCrossroad(Crossroad crossroad);
 
-    Crossroad changePlace(Crossroad crossroad);
+    void changePlace(Crossroad crossroad);
 
     Crossroad findById(String id);
 

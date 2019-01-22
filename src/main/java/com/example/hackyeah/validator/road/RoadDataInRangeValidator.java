@@ -1,4 +1,4 @@
-package com.example.hackyeah.validator;
+package com.example.hackyeah.validator.road;
 
 import com.example.hackyeah.entity.Road;
 

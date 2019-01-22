@@ -1,6 +1,6 @@
 package com.example.hackyeah.entity;
 
-import com.example.hackyeah.validator.RoadDataInRange;
+import com.example.hackyeah.validator.road.RoadDataInRange;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
