@@ -1,12 +1,10 @@
 package com.example.hackyeah.entity;
 
+import com.example.hackyeah.validator.VehicleDataInRange;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.lang.NonNull;
-
-import javax.validation.Valid;
 
 @Data
 @AllArgsConstructor
@@ -15,7 +13,7 @@ import javax.validation.Valid;
 public class PathFinderWrapper {
     private Crossroad start;
     private Crossroad end;
-    @Valid
-    @NonNull
+
+    @VehicleDataInRange
     private Vehicle vehicle;
 }
