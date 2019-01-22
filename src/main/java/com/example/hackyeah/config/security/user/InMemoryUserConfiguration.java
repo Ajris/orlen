@@ -21,7 +21,7 @@ public class InMemoryUserConfiguration {
     @Bean
     public UserDetailsService userDetailsService() {
         InMemoryUserDetailsManager manager = new InMemoryUserDetailsManager();
-        manager.createUser(User.withUsername("user").password(passwordEncoder.encode("password"))
+        manager.createUser(User.withUsername("user").password(passwordEncoder.encode("user"))
                 .roles("USER").build());
         manager.createUser(User.withUsername("admin").password(passwordEncoder.encode("admin"))
                 .roles("USER","ADMIN").build());

@@ -2,8 +2,6 @@ package com.example.hackyeah.service.path;
 
 import com.example.hackyeah.entity.Crossroad;
 import com.example.hackyeah.entity.PathFinderWrapper;
-import com.example.hackyeah.entity.Road;
-import com.example.hackyeah.repository.CrossroadRepository;
 import com.example.hackyeah.service.crossroad.CrossroadService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,6 +18,7 @@ import java.util.stream.Collectors;
 @Service
 public class PathServiceImpl implements PathService {
 
+    private static final Crossroad FAKE_FIRST_PREDECESSOR = Crossroad.builder().id("-1").build();
     private final CrossroadService crossroadService;
 
     @Autowired
@@ -36,7 +35,7 @@ public class PathServiceImpl implements PathService {
         Set<Crossroad> visited = new HashSet<>();
         Stack<Crossroad> crossroadsToVisit = new Stack<>();
         Map<Crossroad, Crossroad> successorPredecessor = new HashMap<>();
-        successorPredecessor.put(start, Crossroad.builder().id("-1").build());
+        successorPredecessor.put(start, FAKE_FIRST_PREDECESSOR);
 
         visited.add(start);
         crossroadsToVisit.add(start);
@@ -70,7 +69,7 @@ public class PathServiceImpl implements PathService {
 
     private List<Crossroad> createSolution(Map<Crossroad, Crossroad> successorPredecessor, Crossroad current) {
         List<Crossroad> solution = new ArrayList<>();
-        while (!current.getId().equals("-1")) {
+        while (!current.equals(FAKE_FIRST_PREDECESSOR)) {
             solution.add(current);
             current = successorPredecessor.get(current);
         }
