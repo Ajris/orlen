@@ -32,6 +32,7 @@ public class CrossroadServiceImpl implements CrossroadService {
         Crossroad currentCrossroad = findById(crossroad.getId());
 
         List<Road> connectedRoads = findConnectedRoads(currentCrossroad);
+        updateConnectedCrossroads(currentCrossroad);
 
         connectedRoads.forEach(updateRoadPosition(crossroad, currentCrossroad));
 
@@ -44,6 +45,21 @@ public class CrossroadServiceImpl implements CrossroadService {
 
         roadRepository.saveAll(connectedRoads);
         return crossroadRepository.save(crossroadToSave);
+    }
+
+    private void updateConnectedCrossroads(Crossroad currentCrossroad) {
+//        currentCrossroad.getConnectedRoads()
+//                .stream()
+//                .map(road -> {
+//                    return List.of(road.getEnd(), road.getStart())
+//                            .stream()
+//                            .filter(crossroad -> crossroad.equals(currentCrossroad))
+//                            .forEach(crossroad -> {
+//                                crossroad.setLatitude(currentCrossroad.getLatitude());
+//                                crossroad.setLongitude(currentCrossroad.getLongitude());
+//                                crossroadRepository.save(crossroad);
+//                            });
+//                }).close();
     }
 
     private Consumer<Road> updateRoadPosition(Crossroad crossroad, Crossroad currentCrossroad) {

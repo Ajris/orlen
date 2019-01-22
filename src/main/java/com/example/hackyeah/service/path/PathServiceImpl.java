@@ -50,8 +50,8 @@ public class PathServiceImpl implements PathService {
 
             for (Crossroad crossroad : getNeighbours(current)) {
                 if (!visited.contains(crossroad)) {
-                    successorPredecessor.put(crossroad, current);
-                    crossroadsToVisit.push(crossroad);
+                    successorPredecessor.put(crossroadService.findById(crossroad.getId()), current);
+                    crossroadsToVisit.push(crossroadService.findById(crossroad.getId()));
                     visited.add(crossroad);
                 }
             }
