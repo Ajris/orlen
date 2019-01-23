@@ -35,26 +35,26 @@ public class PathServiceImpl implements PathService {
         Crossroad end = crossroadService.findById(pathFinderWrapper.getEnd().getId());
         Vehicle vehicle = pathFinderWrapper.getVehicle();
 
-        Set<Crossroad> visited = new HashSet<>();
-        Stack<Crossroad> crossroadsToVisit = new Stack<>();
-        Map<Crossroad, Crossroad> successorPredecessor = new HashMap<>();
-        successorPredecessor.put(start, FAKE_FIRST_PREDECESSOR);
+        Set<Crossroad> visitedCrossroads = new HashSet<>();
+        Stack<Crossroad> crossroadsToProcess = new Stack<>();
+        Map<Crossroad, Crossroad> pathBetweenCrossroads = new HashMap<>();
+        pathBetweenCrossroads.put(start, FAKE_FIRST_PREDECESSOR);
 
-        visited.add(start);
-        crossroadsToVisit.add(start);
+        crossroadsToProcess.add(start);
+        visitedCrossroads.add(start);
 
-        while (!crossroadsToVisit.empty()) {
-            Crossroad current = crossroadsToVisit.pop();
+        while (!crossroadsToProcess.empty()) {
+            Crossroad current = crossroadsToProcess.pop();
 
             if (current.equals(end)) {
-                return createSolution(successorPredecessor, current);
+                return createSolution(pathBetweenCrossroads, current);
             }
 
             for (Crossroad crossroad : getNeighbours(current)) {
-                if (!visited.contains(crossroad) && vehicleCanGoThroughRoad(vehicle, getRoadBetweenCrossroads(crossroad, current))) {
-                    successorPredecessor.put(crossroadService.findById(crossroad.getId()), current);
-                    crossroadsToVisit.push(crossroadService.findById(crossroad.getId()));
-                    visited.add(crossroad);
+                if (!visitedCrossroads.contains(crossroad) && vehicleCanGoThroughRoad(vehicle, getRoadBetweenCrossroads(crossroad, current))) {
+                    pathBetweenCrossroads.put(crossroadService.findById(crossroad.getId()), current);
+                    crossroadsToProcess.push(crossroadService.findById(crossroad.getId()));
+                    visitedCrossroads.add(crossroadService.findById(crossroad.getId()));
                 }
             }
         }
@@ -84,11 +84,11 @@ public class PathServiceImpl implements PathService {
                 .collect(Collectors.toList());
     }
 
-    private List<Crossroad> createSolution(Map<Crossroad, Crossroad> successorPredecessor, Crossroad current) {
+    private List<Crossroad> createSolution(Map<Crossroad, Crossroad> path, Crossroad current) {
         List<Crossroad> solution = new ArrayList<>();
         while (!current.equals(FAKE_FIRST_PREDECESSOR)) {
             solution.add(current);
-            current = successorPredecessor.get(current);
+            current = path.get(current);
         }
         return solution;
     }
