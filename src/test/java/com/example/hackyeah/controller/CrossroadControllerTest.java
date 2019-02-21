@@ -28,6 +28,7 @@ public class CrossroadControllerTest {
     @Autowired
     private MockMvc mvc;
 
+
     @MockBean
     private CrossroadService crossroadServiceMock;
 
