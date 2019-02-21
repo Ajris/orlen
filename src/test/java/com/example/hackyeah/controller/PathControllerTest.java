@@ -4,6 +4,7 @@ import com.example.hackyeah.entity.Crossroad;
 import com.example.hackyeah.entity.PathFinderWrapper;
 import com.example.hackyeah.service.path.PathService;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -32,6 +33,7 @@ public class PathControllerTest {
     private PathService pathService;
 
 
+    @Disabled
     @WithMockUser("admin")
     @Test
     void shouldSetPath() throws Exception {
